@@ -1,0 +1,7 @@
+<h1>ペアリング提案</h1>
+<p>ワインの価格: <%= @wine.price %> 円</p>
+<p>産地: <%= @wine.region %></p>
+<p>品種: <%= @wine.variety %></p>
+<h2>おすすめの料理</h2>
+<p><%= @pairing_suggestion %></p>
+<%= link_to "別のワインで試す", new_wine_path %>

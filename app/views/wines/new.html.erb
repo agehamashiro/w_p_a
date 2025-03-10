@@ -1,0 +1,16 @@
+<h1>ワインペアリング検索</h1>
+<%= form_with model: @wine, local: true do |f| %>
+  <div>
+    <%= f.label :price, "ワインの価格（円）" %>
+    <%= f.number_field :price %>
+  </div>
+  <div>
+    <%= f.label :region, "ワインの産地" %>
+    <%= f.text_field :region %>
+  </div>
+  <div>
+    <%= f.label :variety, "ワインの品種" %>
+    <%= f.text_field :variety %>
+  </div>
+  <%= f.submit "料理を提案" %>
+<% end %>
