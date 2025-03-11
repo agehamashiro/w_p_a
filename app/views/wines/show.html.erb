@@ -2,6 +2,19 @@
 <p>ワインの価格: <%= @wine.price %> 円</p>
 <p>産地: <%= @wine.region %></p>
 <p>品種: <%= @wine.variety %></p>
+
 <h2>おすすめの料理</h2>
-<p><%= @pairing_suggestion %></p>
+<% if @pairing_suggestion.is_a?(Array) && @pairing_suggestion.present? %>
+  <ul>
+    <% @pairing_suggestion.each do |dish| %>
+      <li>
+        <strong>料理名:</strong> <%= dish["料理名"] || "データなし" %><br>
+        <strong>レシピ:</strong> <%= dish["レシピ"] || "データなし" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>料理の提案が取得できませんでした。</p>
+<% end %>
+
 <%= link_to "別のワインで試す", new_wine_path %>

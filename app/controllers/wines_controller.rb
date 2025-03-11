@@ -29,40 +29,56 @@ class WinesController < ApplicationController
   def fetch_pairing_suggestion(wine)
     api_key = ENV['GEMINI_API_KEY']
     return "APIキーが設定されていません" if api_key.nil? || api_key.empty?
-
+  
     url = URI("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=#{api_key}")
-
+  
     prompt = <<~PROMPT
       #{wine.price}円の#{wine.region}産、品種#{wine.variety}のワインに合う料理を提案してください。
       日本のスーパーで買える食材を使い、家庭で簡単に作れるレシピを考えてください。
-      料理名と簡単なレシピの説明を JSON 形式で返してください。
+      料理名と詳しいレシピの説明を **JSON 配列のみ** で返してください。
       例:
-      {
-        "料理名": "和風ステーキ",
-        "レシピ": "牛肉を焼き、醤油とみりんで味付け。付け合わせに大根おろしを添える。"
-      }
+      [
+        { "料理名": "和風ステーキ", "レシピ": "牛肉を焼き、醤油とみりんで味付け。付け合わせに大根おろしを添える。" },
+        { "料理名": "シーフードパエリア", "レシピ": "エビ、ムール貝、鶏肉を炒め、サフランライスと一緒に炊く。" }
+      ]
     PROMPT
-
+  
     request_body = {
       model: "gemini-2.0-flash",
       contents: [{ parts: [{ text: prompt }] }]
     }.to_json
-
+  
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     request = Net::HTTP::Post.new(url, { 'Content-Type' => 'application/json' })
     request.body = request_body
-
+  
     response = http.request(request)
-
+  
     begin
       data = JSON.parse(response.body)
       suggestion_text = data.dig('candidates', 0, 'content', 'parts', 0, 'text')
-      return suggestion_text || "提案が取得できませんでした"
+  
+      # **不要な ```json ``` を削除**
+      cleaned_text = suggestion_text.gsub(/```json|```/, "").strip
+  
+      Rails.logger.info "Cleaned Gemini API Response: #{cleaned_text}"
+  
+      parsed_suggestion = JSON.parse(cleaned_text)
+  
+      unless parsed_suggestion.is_a?(Array) && parsed_suggestion.all? { |d| d.is_a?(Hash) && d.key?("料理名") && d.key?("レシピ") }
+        Rails.logger.error "Unexpected response format: #{parsed_suggestion}"
+        return ["APIのレスポンスが予期しない形式です"]
+      end
+  
+      parsed_suggestion
     rescue JSON::ParserError => e
-      return "レスポンス解析エラー: #{e.message}"
+      Rails.logger.error "レスポンス解析エラー: #{e.message}"
+      ["レスポンス解析エラー: #{e.message}"]
     end
   end
+  
+    
 end
 
 
