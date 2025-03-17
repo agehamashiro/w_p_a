@@ -34,15 +34,15 @@ class WinesController < ApplicationController
   
     prompt = <<~PROMPT
       #{wine.price}円の#{wine.region}産、品種#{wine.variety}のワインに合う料理を提案してください。
-      日本のスーパーで買える食材を使い、家庭で簡単に作れるレシピを考えてください。
-      料理名と詳しいレシピの説明を **JSON 配列のみ** で返してください。
+      料理名と詳しい料理の説明を **JSON 配列のみ** で返してください。
       例:
       [
-        { "料理名": "和風ステーキ", "レシピ": "牛肉を焼き、醤油とみりんで味付け。付け合わせに大根おろしを添える。" },
-        { "料理名": "シーフードパエリア", "レシピ": "エビ、ムール貝、鶏肉を炒め、サフランライスと一緒に炊く。" }
+        { "料理名": "鶏肉のソテー:", "説明": "ハーブやスパイスでシンプルに味付けした鶏もも肉のソテーは、メルローの果実味とよく合います。" },
+        { "料理名": "肉の生姜焼き", "説明": "生姜の風味がメルローの風味を引き立てます。" }
       ]
     PROMPT
   
+
     request_body = {
       model: "gemini-2.0-flash",
       contents: [{ parts: [{ text: prompt }] }]
@@ -66,7 +66,7 @@ class WinesController < ApplicationController
   
       parsed_suggestion = JSON.parse(cleaned_text)
   
-      unless parsed_suggestion.is_a?(Array) && parsed_suggestion.all? { |d| d.is_a?(Hash) && d.key?("料理名") && d.key?("レシピ") }
+      unless parsed_suggestion.is_a?(Array) && parsed_suggestion.all? { |d| d.is_a?(Hash) && d.key?("料理名") && d.key?("説明") }
         Rails.logger.error "Unexpected response format: #{parsed_suggestion}"
         return ["APIのレスポンスが予期しない形式です"]
       end

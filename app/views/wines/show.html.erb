@@ -9,7 +9,7 @@
     <% @pairing_suggestion.each do |dish| %>
       <li>
         <strong>料理名:</strong> <%= dish["料理名"] || "データなし" %><br>
-        <strong>レシピ:</strong> <%= dish["レシピ"] || "データなし" %>
+        <strong>説明:</strong> <%= dish["説明"] || "データなし" %>
       </li>
     <% end %>
   </ul>
