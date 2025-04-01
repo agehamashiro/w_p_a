@@ -71,13 +71,26 @@ class WinesController < ApplicationController
         return ["APIのレスポンスが予期しない形式です"]
       end
   
+      # 料理名に対応する画像のパスを設定
+      parsed_suggestion.each do |dish|
+        # 画像のファイル名を日本語で設定
+        image_name = "#{dish["料理名"]}.jpg"
+        image_path = Rails.root.join('public', 'images', image_name)
+  
+        # 画像が存在するか確認して存在すればそのURLを設定
+        dish["image_url"] = image_exists?(image_path) ? "/images/#{image_name}" : nil
+      end
+
       parsed_suggestion
     rescue JSON::ParserError => e
       Rails.logger.error "レスポンス解析エラー: #{e.message}"
       ["レスポンス解析エラー: #{e.message}"]
     end
   end
-  
+
+  def image_exists?(image_path)
+    File.exist?(image_path)
+  end
     
 end
 

@@ -9,7 +9,13 @@
     <% @pairing_suggestion.each do |dish| %>
       <li>
         <strong>料理名:</strong> <%= dish["料理名"] || "データなし" %><br>
-        <strong>説明:</strong> <%= dish["説明"] || "データなし" %>
+        <strong>説明:</strong> <%= dish["説明"] || "データなし" %><br>
+
+        <% if dish["image_url"].present? %>
+          <%= image_tag(dish["image_url"], alt: dish["料理名"], width: 200) %>
+        <% else %>
+          
+        <% end %>
       </li>
     <% end %>
   </ul>
