@@ -23,7 +23,7 @@ class WinesController < ApplicationController
   private
   
   def wine_params
-    params.require(:wine).permit(:price, :region, :variety, :preference)
+    params.require(:wine).permit(:price, :region, :variety, :preference, :ingredient)
   end
   
   def fetch_pairing_suggestion(wine)
@@ -34,7 +34,7 @@ class WinesController < ApplicationController
   
     prompt = <<~PROMPT
       #{wine.price}円の#{wine.region}産、品種#{wine.variety}のワインに合う料理を提案してください。
-      料理の好みは「#{wine.preference.presence || '指定なし'}」です。
+      料理の好みは「#{wine.preference.presence || '指定なし'}」、使いたい食材は「#{wine.ingredient.presence || '指定なし'}」です。
       料理名と詳しい料理の説明を **JSON 配列のみ** で返してください。
       例:
       [
