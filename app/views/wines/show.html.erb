@@ -2,6 +2,7 @@
 <p>ワインの価格: <%= @wine.price %> 円</p>
 <p>産地: <%= @wine.region %></p>
 <p>品種: <%= @wine.variety %></p>
+<p>(任意)料理の好み: <%= @wine.preference.presence || "指定なし" %></p>
 
 <h2>おすすめの料理</h2>
 <% if @pairing_suggestion.is_a?(Array) && @pairing_suggestion.present? %>

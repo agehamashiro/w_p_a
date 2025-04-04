@@ -12,5 +12,9 @@
     <%= f.label :variety, "ワインの品種" %>
     <%= f.text_field :variety %>
   </div>
+  <div>
+    <%= f.label :preference, "(任意)料理の好み（例: 和風・洋風、肉料理など）" %>
+    <%= f.text_field :preference %>
+  </div>
   <%= f.submit "料理を提案" %>
 <% end %>
