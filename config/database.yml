@@ -9,7 +9,7 @@ default: &default
 
 development:
   <<: *default
-  database: w_p_a_development
+  url: <%= ENV['DATABASE_URL'] %>
 
 test:
   <<: *default
