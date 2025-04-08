@@ -1,5 +1,13 @@
 <h1>ペアリング提案</h1>
-<p>ワインの価格: <%= @wine.price %> 円</p>
+<p>ワインの価格帯: 
+  <%# コントローラで設定した @wine.price_range をわかりやすく表示 %>
+  <%= case @wine.price_range
+      when '500-1000' then '500～1000円'
+      when '1000-2000' then '1000～2000円'
+      when '2000+' then '2000円以上'
+      else '指定なし'
+      end %>
+  </p>
 <p>産地: <%= @wine.region %></p>
 <p>品種: <%= @wine.variety %></p>
 <p>料理の好み: <%= @wine.preference.presence || "指定なし" %></p>

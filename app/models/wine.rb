@@ -1,2 +1,7 @@
 class Wine < ApplicationRecord
-end
+    attr_accessor :price_range
+  
+    # 必要ならバリデーションも可能（保存されないけどフォームでチェックできる）
+    # validates :price_range, presence: true
+  end
+  

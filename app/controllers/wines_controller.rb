@@ -8,15 +8,19 @@ class WinesController < ApplicationController
   
   def create
     @wine = Wine.new(wine_params)
+    @wine.price_range = params[:wine][:price_range]  # 仮想属性をセット
+  
     if @wine.save
-      redirect_to wine_path(@wine)
+      redirect_to wine_path(@wine, price_range: @wine.price_range) # showで使う場合に渡す
     else
       render :new
     end
   end
   
+  
   def show
     @wine = Wine.find(params[:id])
+    @wine.price_range = params[:price_range] # パラメータで受け取る
     @pairing_suggestion = fetch_pairing_suggestion(@wine)
   end
   
@@ -31,7 +35,12 @@ class WinesController < ApplicationController
     return "APIキーが設定されていません" if api_key.nil? || api_key.empty?
   
     url = URI("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=#{api_key}")
-  
+    price_text = case wine.price_range
+                 when '500-1000' then '500～1000円'
+                 when '1000-2000' then '1000～2000円'
+                 when '2000+' then '2000円以上'
+                 else '価格指定なし'
+                 end
     prompt = <<~PROMPT
       #{wine.price}円の#{wine.region}産、品種#{wine.variety}のワインに合う料理を提案してください。
       料理の好みは「#{wine.preference.presence || '指定なし'}」、使いたい食材は「#{wine.ingredient.presence || '指定なし'}」です。
