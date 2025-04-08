@@ -1,24 +1,68 @@
-# README
+■サービス概要
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ユーザーが選んだワインに伴う料理を提案するWebアプリ。
+ワインの値段・産地・品種を入力すると、日本のスーパーで購入可能な食材を使った料理を提案する。
+ワイン初心者でも気軽にペアリングを楽しめるようにする。
 
-Things you may want to cover:
+■ このサービスへの思い・作りたい理由
 
-* Ruby version
+ワインは興味はあるが、どのような料理と伴うのか分かりにくい。
+ネットでペアリングを調べても、難しい食材が多く、家庭で再現しにくい。
+日本で家庭で満足できるワインペアリングを提案するサービスを作りたい。
 
-* System dependencies
+■ ユーザー層について
 
-* Configuration
+ワインに興味のある日本人アラサー気象
 
-* Database creation
+レストラン・ワイナリーを少しずつ気軽に楽しみたい人
 
-* Database initialization
+ネットで情報を集めることが多い人
 
-* How to run the test suite
+■ サービスの利用イメージ
 
-* Services (job queues, cache servers, search engines, etc.)
+ユーザーが手元にあるワインの値段・産地・品種を入力し、それに伴う料理を提案する。
+その料理に必要な食材も提示するため、スーパーで購入して家庭で再現が可能。
 
-* Deployment instructions
+■ ユーザーの獲得について
 
-* ...
+SNS (特にInstagram、X) でレシピ提案と連携した情報発信
+
+ワインサークルサイトやアフィリエイティーサイトとの連携
+
+■ サービスの差別化ポイント・推しポイント
+
+日本のスーパーで手に入る食材を使ったレシピ提案
+
+ユーザーのワイン値段・産地・品種に合わせたカスタマイズ可能
+
+■ 機能候補
+
+MVPリリース時
+
+ワインの値段・産地・品種入力（ログインなしでも利用可能）
+
+Gemini API を使った料理提案（ログインなしでも利用可能）
+
+本リリース時
+
+提案された料理の評価機能（星とコメント）
+
+ユーザーの導入ログ（検索履歴・閲覧履歴の保存）
+
+■ 機能の実装方針予定
+
+Gemini API
+
+ワインの情報を基に料理を提案
+
+データベース
+
+PostgreSQLを利用
+
+フロントエンド
+
+Ruby on Rails 7 で実装
+
+デブロイ
+
+Render、Neonを使用
