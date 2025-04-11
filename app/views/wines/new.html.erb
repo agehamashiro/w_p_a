@@ -14,7 +14,7 @@
 </head>
 <body class="min-h-screen bg-gray-50 flex justify-center pt-0 px-0">
 
-  <div class="mx-auto w-full max-w-3xl bg-white border border-[#800020] rounded-3xl shadow-2xl px-20 py-16 text-center space-y-10">
+  <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-20 py-16 text-center space-y-10">
     
     <h1 class="text-5xl text-gray-800 tracking-wide">ワインペアリング提案</h1>
 
@@ -44,7 +44,7 @@
       </div>
 
       <div>
-        <%= f.label :ingredient, "使いたい食材", class: "block mb-2" %>
+        <%= f.label :ingredient, "使いたい食材（例: 鶏肉、じゃがいも など）", class: "block mb-2" %>
         <%= f.text_field :ingredient, class: "w-full border border-gray-300 rounded-md p-3" %>
       </div>
 
