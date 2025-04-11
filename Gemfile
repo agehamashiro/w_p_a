@@ -42,7 +42,7 @@ gem "thruster", require: false
 
 gem 'httparty' # APIリクエスト用
 gem 'dotenv-rails', '3.1.0'
-
+gem "tailwindcss-rails"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

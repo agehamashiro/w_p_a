@@ -1,32 +1,64 @@
-<h1>ワインペアリング検索</h1>
-<p>
-  ワインの価格帯、産地、品種に加え、お好みの料理の傾向や使用したい食材を入力し、最適なペアリングを見つけましょう。<br>
-  なお、すべての入力項目は任意でございますので、ご自身のご希望に合わせて必要な項目のみご記入ください。
-</p>
-<%= form_with model: @wine, local: true do |f| %>
-<div>
-<%= f.label :price_range, "ワインの価格帯（円）" %>
-  <%= f.select :price_range, options_for_select([
-    ['500～1000円', '500-1000'],
-    ['1000～2000円', '1000-2000'],
-    ['2000円以上', '2000+']
-  ]) %>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ワインペアリング提案</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Kaisei Decol', serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex justify-center pt-0 px-0">
+
+  <div class="mx-auto w-full max-w-3xl bg-white border border-[#800020] rounded-3xl shadow-2xl px-20 py-16 text-center space-y-10">
+    
+    <h1 class="text-5xl text-gray-800 tracking-wide">ワインペアリング提案</h1>
+
+    <%= form_with model: @wine, local: true, class: "space-y-6 text-2xl text-gray-700" do |f| %>
+      <div>
+        <%= f.label :price_range, "ワインの価格帯（円）", class: "block mb-2" %>
+        <%= f.select :price_range, options_for_select([
+          ["500～1000円", "500-1000"],
+          ["1000～2000円", "1000-2000"],
+          ["2000円以上", "2000+"]
+        ]), {}, class: "w-full border border-gray-300 rounded-md p-3 shadow-sm" %>
+      </div>
+
+      <div>
+        <%= f.label :region, "ワインの産地（チリ・スペイン・日本など）", class: "block mb-2" %>
+        <%= f.text_field :region, class: "w-full border border-gray-300 rounded-md p-3" %>
+      </div>
+
+      <div>
+        <%= f.label :variety, "ワインの品種（赤・白・シャルドネなど）", class: "block mb-2" %>
+        <%= f.text_field :variety, class: "w-full border border-gray-300 rounded-md p-3" %>
+      </div>
+
+      <div>
+        <%= f.label :preference, "料理の好み（例: 和風・洋風、肉料理など）", class: "block mb-2" %>
+        <%= f.text_field :preference, class: "w-full border border-gray-300 rounded-md p-3" %>
+      </div>
+
+      <div>
+        <%= f.label :ingredient, "使いたい食材", class: "block mb-2" %>
+        <%= f.text_field :ingredient, class: "w-full border border-gray-300 rounded-md p-3" %>
+      </div>
+
+      <div class="pt-4">
+        <%= f.submit "料理を提案", class: "bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition" %>
+      </div>
+
+      <p class="text-xl text-gray-800 text-left pt-2 leading-relaxed">
+        　ワインの価格帯、産地、品種に加え、お好みの料理の傾向や使用したい食材を入力し、最適なペアリングを見つけましょう。<br>
+        　なお、すべての入力項目は任意でございますので、ご自身のご希望に合わせて必要な項目のみご記入ください。
+      </p>
+    <% end %>
+
   </div>
-  <div>
-    <%= f.label :region, "ワインの産地" %>
-    <%= f.text_field :region %>
-  </div>
-  <div>
-    <%= f.label :variety, "ワインの品種" %>
-    <%= f.text_field :variety %>
-  </div>
-  <div>
-    <%= f.label :preference, "料理の好み（例: 和風・洋風、肉料理など）" %>
-    <%= f.text_field :preference %>
-  </div>
-  <div>
-  <%= f.label :ingredient, "使いたい食材（例: 鶏肉、じゃがいも など）" %>
-  <%= f.text_field :ingredient %>
-  </div>
-  <%= f.submit "料理を提案" %>
-<% end %>
+
+</body>
+</html>
