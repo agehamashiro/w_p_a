@@ -45,8 +45,8 @@
             end %>
       </p>
 
-      <p><strong>産地:</strong> <%= @wine.region %></p>
-      <p><strong>品種:</strong> <%= @wine.variety %></p>
+      <p><strong>産地:</strong> <%= @wine.region || "指定なし" %></p>
+      <p><strong>品種:</strong> <%= @wine.variety || "指定なし" %></p>
       <p><strong>料理の好み:</strong> <%= @wine.preference.presence || "指定なし" %></p>
       <p><strong>使いたい食材:</strong> <%= @wine.ingredient.presence || "指定なし" %></p>
     </div>

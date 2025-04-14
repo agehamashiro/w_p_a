@@ -41,8 +41,10 @@ class WinesController < ApplicationController
                  when '2000+' then '2000円以上'
                  else '価格指定なし'
                  end
+    p 'wine.price'
+    p price_text
     prompt = <<~PROMPT
-      #{wine.price}円の#{wine.region}産、品種#{wine.variety}のワインに合う料理を提案してください。
+      #{price_text}の#{wine.region.present? ? "#{wine.region}産" : '産地指定なし'}、#{wine.variety.present? ? "品種#{wine.variety}" : '品種指定なし'}のワインに合う料理を提案してください。
       料理の好みは「#{wine.preference.presence || '指定なし'}」、使いたい食材は「#{wine.ingredient.presence || '指定なし'}」です。
       料理名と詳しい料理の説明を **JSON 配列のみ** で返してください。料理数は5つ以下。料理名にスペースは使わない
       例:
@@ -51,7 +53,7 @@ class WinesController < ApplicationController
         { "料理名": "肉の生姜焼き", "説明": "生姜の風味がメルローの風味を引き立てます。" }
       ]
     PROMPT
-  
+    p prompt
 
     request_body = {
       model: "gemini-2.0-flash",
