@@ -1,36 +1,56 @@
-<h1>ペアリング提案</h1>
-<p>ワインの価格帯: 
-  <%# コントローラで設定した @wine.price_range をわかりやすく表示 %>
-  <%= case @wine.price_range
-      when '500-1000' then '500～1000円'
-      when '1000-2000' then '1000～2000円'
-      when '2000+' then '2000円以上'
-      else '指定なし'
-      end %>
-  </p>
-<p>産地: <%= @wine.region %></p>
-<p>品種: <%= @wine.variety %></p>
-<p>料理の好み: <%= @wine.preference.presence || "指定なし" %></p>
-<p>使いたい食材: <%= @wine.ingredient.presence || "指定なし" %></p>
+<head>
+  <meta charset="UTF-8">
+  <title>ペアリング提案</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Kaisei Decol', serif;
+    }
+  
+  </style>
+</head>
 
-<h2>おすすめの料理</h2>
-<% if @pairing_suggestion.is_a?(Array) && @pairing_suggestion.present? %>
-  <ul>
-    <% @pairing_suggestion.each do |dish| %>
-      <li>
-        <strong>料理名:</strong> <%= dish["料理名"] || "データなし" %><br>
-        <strong>説明:</strong> <%= dish["説明"] || "データなし" %><br>
+<body class="min-h-screen bg-gray-50 flex justify-center pt-0 px-0">
+  <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-20 py-16 text-center space-y-10">
+    <h1 class="text-4xl font-bold">ペアリング提案</h1>
 
-        <% if dish["image_url"].present? %>
-          <%= image_tag(dish["image_url"], alt: dish["料理名"], width: 200) %>
-        <% else %>
-          
+    <div class="space-y-3 text-left text-lg">
+      <p><strong>ワインの価格帯:</strong>
+        <%= case @wine.price_range
+            when '500-1000' then '500～1000円'
+            when '1000-2000' then '1000～2000円'
+            when '2000+' then '2000円以上'
+            else '指定なし'
+            end %>
+      </p>
+
+      <p><strong>産地:</strong> <%= @wine.region %></p>
+      <p><strong>品種:</strong> <%= @wine.variety %></p>
+      <p><strong>料理の好み:</strong> <%= @wine.preference.presence || "指定なし" %></p>
+      <p><strong>使いたい食材:</strong> <%= @wine.ingredient.presence || "指定なし" %></p>
+    </div>
+
+    <h2 class="text-2xl font-semibold mt-10">おすすめの料理</h2>
+
+    <% if @pairing_suggestion.is_a?(Array) && @pairing_suggestion.present? %>
+      <ul class="space-y-6 text-left text-base">
+        <% @pairing_suggestion.each do |dish| %>
+          <li class="border border-gray-200 p-4 rounded-md shadow-sm">
+            <p><strong>料理名:</strong> <%= dish["料理名"] || "データなし" %></p>
+            <p><strong>説明:</strong> <%= dish["説明"] || "データなし" %></p>
+            <% if dish["image_url"].present? %>
+              <div class="mt-2">
+                <%= image_tag(dish["image_url"], alt: dish["料理名"], width: 200, class: "mx-auto") %>
+              </div>
+            <% end %>
+          </li>
         <% end %>
-      </li>
+      </ul>
+    <% else %>
+      <p class="text-red-600 font-medium">料理の提案が取得できませんでした。</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>料理の提案が取得できませんでした。</p>
-<% end %>
 
-<%= link_to "別のワインで試す", new_wine_path %>
+    <%= link_to "別のワインで試す", new_wine_path, class: "inline-block mt-10 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-6 rounded-md transition" %>
+  </div>
+</body>
