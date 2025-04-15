@@ -12,13 +12,13 @@
     }
     .label-container {
       display: flex;
-      flex-direction: column; /* 入力ボックスを次の行に配置 */
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
       max-width: 100%;
       overflow: hidden;
     }
     label {
-      font-size: clamp(14px, 2vw, 28px); /* 最大サイズを少し小さめに設定 */
+      font-size: clamp(12px, 1.5vw, 24px);  /* 自動調整 */
       max-width: 100%; /* 横方向の見切れ防止 */
       white-space: nowrap;
       overflow: hidden;
@@ -36,50 +36,36 @@
 </head>
 <body class="min-h-screen bg-gray-50 flex justify-center pt-0 px-0">
 
-  <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-4 sm:px-10 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 text-center space-y-10">
+<div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-4 sm:px-10 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 text-center space-y-10">
+
     <h1 class="text-5xl text-gray-800 tracking-wide">ワインペアリング提案</h1>
 
-    <form class="space-y-6 text-gray-700">
-      <div class="label-container">
-        <label for="price_range">ワインの価格帯（円）</label>
-        <select id="price_range" name="price_range">
-          <option value="500-1000">500～1000円</option>
-          <option value="1000-2000">1000～2000円</option>
-          <option value="2000+">2000円以上</option>
-        </select>
-      </div>
+    <%= form_with model: @wine, local: true, class: "space-y-4 text-gray-700" do |f| %>
+      <% fields = {
+        price_range: "ワインの価格帯（円）",
+        region: "ワインの産地（チリ・日本など）",
+        variety: "ワインの品種（白・メルローなど）",
+        preference: "料理の好み（例: 和風、肉料理など）",
+        ingredient: "使いたい食材（例: 鶏肉など）"
+      } %>
 
-      <div class="label-container">
-        <label for="region">ワインの産地（チリ・日本など）</label>
-        <input type="text" id="region" name="region">
-      </div>
-
-      <div class="label-container">
-        <label for="variety">ワインの品種（白・メルローなど）</label>
-        <input type="text" id="variety" name="variety">
-      </div>
-
-      <div class="label-container">
-        <label for="preference">料理の好み（和風、肉料理など）</label>
-        <input type="text" id="preference" name="preference">
-      </div>
-
-      <div class="label-container">
-        <label for="ingredient">使いたい食材（鶏肉など）</label>
-        <input type="text" id="ingredient" name="ingredient">
-      </div>
+      <% fields.each do |field, label| %>
+        <div class="label-container">
+        <%= f.label field, label, class: "block mb-2 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl" %>
+          <%= f.text_field field, class: "w-full border border-gray-300 rounded-md p-3" %>
+        </div>
+      <% end %>
 
       <div class="pt-4">
-        <button type="submit" class="bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition">
-          料理を提案
-        </button>
+        <%= f.submit "料理を提案", class: "bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition" %>
       </div>
 
       <p class="text-xl text-gray-800 text-left pt-2 leading-relaxed">
         　ワインの価格帯、産地、品種に加え、お好みの料理の傾向や使用したい食材を入力し、最適なペアリングを見つけましょう。<br>
         　なお、すべての入力項目は任意ですので、ご自身のご希望に合わせて必要な項目のみご記入ください。
       </p>
-    </form>
+    <% end %>
+
   </div>
 
 </body>
