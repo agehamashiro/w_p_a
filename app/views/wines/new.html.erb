@@ -44,15 +44,20 @@
       <% fields = {
         price_range: "ワインの価格帯（円）",
         region: "ワインの産地（チリ・日本など）",
-        variety: "ワインの品種（白・メルローなど）",
-        preference: "料理の好み（例: 和風、肉料理など）",
-        ingredient: "使いたい食材（例: 鶏肉など）"
+        variety: "ワインの品種(白・メルローなど)",
+        preference: "料理の好み(和風、肉料理など)",
+        ingredient: "使いたい食材（鶏肉・魚類など）"
       } %>
 
       <% fields.each do |field, label| %>
         <div class="label-container">
-        <%= f.label field, label, class: "block mb-2 text-xl sm:text-xl md:text-xl lg:text-xl xl:text-2xl" %>
-          <%= f.text_field field, class: "w-full border border-gray-300 rounded-md p-3" %>
+          <%= f.label field, label, class: "block mb-2 text-xl sm:text-xl md:text-xl lg:text-xl xl:text-2xl" %>
+
+          <% if field == :price_range %>
+            <%= f.select field, [["指定なし", ""], ["500～1000円", "500-1000"], ["1000～2000円", "1000-2000"], ["2000円以上", "2000+"]], {}, class: "w-full border border-gray-300 rounded-md p-3" %>
+          <% else %>
+            <%= f.text_field field, class: "w-full border border-gray-300 rounded-md p-3" %>
+          <% end %>
         </div>
       <% end %>
 
