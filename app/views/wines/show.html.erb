@@ -12,14 +12,14 @@
 </head>
 
 <body class="min-h-screen bg-gray-50 flex justify-center pt-0 px-0">
-  <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-20 py-5 text-center space-y-5">
+  <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-5 py-5 text-center space-y-5">
 
     <h2 class="text-5xl text-gray-800 tracking-wide mb-10">おすすめの料理</h2>
 
     <% if @pairing_suggestion.is_a?(Array) && @pairing_suggestion.present? %>
       <ul class="space-y-5 text-left text-xl">
         <% @pairing_suggestion.each do |dish| %>
-          <li class="border border-gray-400 p-4 rounded-md shadow-sm">
+          <li class="border border-400 border-[#800020]  p-4 rounded-md shadow-sm">
             <p><strong>料理名:</strong> <%= dish["料理名"] || "データなし" %></p>
             <p><strong>説明:</strong> <%= dish["説明"] || "データなし" %></p>
             <% if dish["image_url"].present? %>
