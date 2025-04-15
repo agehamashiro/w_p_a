@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ワインペアリング提案</title>
   <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -10,55 +10,76 @@
     body {
       font-family: 'Kaisei Decol', serif;
     }
+    .label-container {
+      display: flex;
+      flex-direction: column; /* 入力ボックスを次の行に配置 */
+      align-items: flex-start;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    label {
+      font-size: clamp(14px, 2vw, 28px); /* 最大サイズを少し小さめに設定 */
+      max-width: 95%; /* 横方向の見切れ防止 */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body class="min-h-screen bg-gray-50 flex justify-center pt-0 px-0">
 
-<div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-4 sm:px-10 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 text-center space-y-10">
-
-    
+  <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-4 sm:px-10 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 text-center space-y-10">
     <h1 class="text-5xl text-gray-800 tracking-wide">ワインペアリング提案</h1>
 
-    <%= form_with model: @wine, local: true, class: "space-y-6 text-2xl text-gray-700" do |f| %>
-      <div>
-        <%= f.label :price_range, "ワインの価格帯（円）", class: "block mb-2" %>
-        <%= f.select :price_range, options_for_select([
-          ["500～1000円", "500-1000"],
-          ["1000～2000円", "1000-2000"],
-          ["2000円以上", "2000+"]
-        ]), {}, class: "w-full border border-gray-300 rounded-md p-3 shadow-sm" %>
+    <form class="space-y-6 text-gray-700">
+      <div class="label-container">
+        <label for="price_range">ワインの価格帯（円）</label>
+        <select id="price_range" name="price_range">
+          <option value="500-1000">500～1000円</option>
+          <option value="1000-2000">1000～2000円</option>
+          <option value="2000+">2000円以上</option>
+        </select>
       </div>
 
-      <div>
-        <%= f.label :region, "ワインの産地（チリ・スペイン・日本など）", class: "block mb-2" %>
-        <%= f.text_field :region, class: "w-full border border-gray-300 rounded-md p-3" %>
+      <div class="label-container">
+        <label for="region">ワインの産地（チリ・スペイン・日本など）</label>
+        <input type="text" id="region" name="region">
       </div>
 
-      <div>
-        <%= f.label :variety, "ワインの品種（赤・白・シャルドネなど）", class: "block mb-2" %>
-        <%= f.text_field :variety, class: "w-full border border-gray-300 rounded-md p-3" %>
+      <div class="label-container">
+        <label for="variety">ワインの品種（赤・白・シャルドネなど）</label>
+        <input type="text" id="variety" name="variety">
       </div>
 
-      <div>
-        <%= f.label :preference, "料理の好み（例: 和風・洋風、肉料理など）", class: "block mb-2" %>
-        <%= f.text_field :preference, class: "w-full border border-gray-300 rounded-md p-3" %>
+      <div class="label-container">
+        <label for="preference">料理の好み（例: 和風・洋風、肉料理など）</label>
+        <input type="text" id="preference" name="preference">
       </div>
 
-      <div>
-        <%= f.label :ingredient, "使いたい食材（例: 鶏肉、じゃがいも など）", class: "block mb-2" %>
-        <%= f.text_field :ingredient, class: "w-full border border-gray-300 rounded-md p-3" %>
+      <div class="label-container">
+        <label for="ingredient">使いたい食材（例: 鶏肉、じゃがいも など）</label>
+        <input type="text" id="ingredient" name="ingredient">
       </div>
 
       <div class="pt-4">
-        <%= f.submit "料理を提案", class: "bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition" %>
+        <button type="submit" class="bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition">
+          料理を提案
+        </button>
       </div>
 
       <p class="text-xl text-gray-800 text-left pt-2 leading-relaxed">
         　ワインの価格帯、産地、品種に加え、お好みの料理の傾向や使用したい食材を入力し、最適なペアリングを見つけましょう。<br>
         　なお、すべての入力項目は任意でございますので、ご自身のご希望に合わせて必要な項目のみご記入ください。
       </p>
-    <% end %>
-
+    </form>
   </div>
 
 </body>
