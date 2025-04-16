@@ -15,8 +15,23 @@
   <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-5 py-5 text-center space-y-5">
 
     <h2 class="text-5xl text-gray-800 tracking-wide mb-10">おすすめの料理</h2>
-
-    <% if @pairing_suggestion.is_a?(Array) && @pairing_suggestion.present? %>
+    
+    <% if @error_message.present? %>
+    <div class="text-gray-800 text-left text-xl font-semibold my-6">
+      <% case @error_message %>
+      <% when "地域名エラー" %>
+        　入力されたワインの産地が正しくないかもしれませんので、入力する場合は例えば、「フランス」や「チリ」などを試してみてください。
+      <% when "品種エラー" %>
+        　入力されたワインの品種が正しくないかもしれませんので、入力する場合は例えば、「赤」「白」などのワインタイプや「メルロー」や「シャルドネ」などの品種がいいかもしれません。
+      <% when "好みエラー" %>
+        　好みの入力がちょっとわかりにくいかもしれません。もっと具体的な料理の種類や味の傾向を入力してみてくださいね！ 例えば、「和風料理」や「肉料理」などが良いかも。
+      <% when "食材エラー" %>
+        　入力された食材は正しくないかもしれません。別の食材を試してみてくださいね。例えば、「鶏肉」や「魚類」などがオススメです！
+      <% else %>
+        不明なエラーが発生しました。
+      <% end %>
+    </div>
+    <% elsif @pairing_suggestion.is_a?(Array) && @pairing_suggestion.present? %>
       <ul class="space-y-5 text-left text-xl">
         <% @pairing_suggestion.each do |dish| %>
           <li class="border border-400 border-[#800020]  p-4 rounded-md shadow-sm">
