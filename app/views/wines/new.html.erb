@@ -1,8 +1,13 @@
+<% content_for :title, "ワインペアリング提案 | Wine Pairing App" %>
+<% content_for :og_title, "ワインペアリング提案 | Wine Pairing App" %>
+<% content_for :og_description, "ワインの価格・産地・品種を選んで、AIがあなたに合った料理を提案します。" %>
+<% content_for :og_image, image_url('wine_ogp.jpg') %>
+<% content_for :og_url, request.original_url %>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ワインペアリング提案</title>
   <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,8 +23,8 @@
       overflow: hidden;
     }
     label {
-      font-size: clamp(12px, 1.5vw, 24px);  /* 自動調整 */
-      max-width: 100%; /* 横方向の見切れ防止 */
+      font-size: clamp(12px, 1.5vw, 24px);
+      max-width: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: clip;
