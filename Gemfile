@@ -41,7 +41,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'httparty' # APIリクエスト用
-gem 'dotenv-rails', '3.1.0'
+gem 'dotenv-rails', '3.1.8'
 gem "tailwindcss-rails"
 gem 'devise'
 
