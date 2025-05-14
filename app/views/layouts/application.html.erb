@@ -8,18 +8,20 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!-- OGP 共通設定 -->
-    <meta property="og:title" content="<%= content_for?(:og_title) ? yield(:og_title) : 'W P A | ワインペアリング提案' %>">
+    <!-- OGP設定 -->
+    <meta property="og:title" content="ワインペアリング提案 | ワイン初心者でも気軽に楽しめるWebアプリ">
+    <meta property="og:description" content="ワインの値段・産地・品種を入力すると、日本のスーパーで購入可能な食材を使った料理を提案。ワイン初心者でも気軽にペアリングを楽しめることを目指したサービスです。">
+    <meta property="og:image" content="<%= image_url('wine_ogp.jpg') %>">
+    <meta property="og:url" content="https://w-p-a.onrender.com/">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<%= content_for?(:og_url) ? yield(:og_url) : request.original_url %>">
-    <meta property="og:image" content="<%= content_for?(:og_image) ? yield(:og_image) : image_url('default_ogp.jpg') %>">
-    <meta property="og:description" content="<%= content_for?(:og_description) ? yield(:og_description) : 'ワインに合う料理をAIが提案します。あなたにぴったりのペアリングを見つけましょう。' %>">
-    <meta property="og:site_name" content="Wine Pairing App">
+    <meta property="og:site_name" content="ワインペアリング提案">
 
+    <!-- Twitterカード設定（任意）-->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<%= content_for?(:og_title) ? yield(:og_title) : 'W P A | ワインペアリング提案' %>">
-    <meta name="twitter:description" content="<%= content_for?(:og_description) ? yield(:og_description) : 'ワインに合う料理をAIが提案します。' %>">
-    <meta name="twitter:image" content="<%= content_for?(:og_image) ? yield(:og_image) : image_url('default_ogp.jpg') %>">
+    <meta name="twitter:title" content="ワインペアリング提案 | ワイン初心者でも気軽に楽しめるWebアプリ">
+    <meta name="twitter:description" content="ワインの値段・産地・品種を入力すると、日本のスーパーで購入可能な食材を使った料理を提案。ワイン初心者でも気軽にペアリングを楽しめることを目指したサービスです。">
+    <meta name="twitter:image" content="<%= image_url('wine_ogp.jpg') %>">
+    <meta name="twitter:url" content="https://w-p-a.onrender.com/">
 
     <%= yield :head %>
 
