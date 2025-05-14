@@ -2,6 +2,15 @@
 # and seeing results in the browser, you must do so from the web console (running inside the dev process),
 # not a terminal started via bin/rails console! Add "console" to any action or any ERB template view
 # to make the web console appear.
+development:
+  adapter: async
+  # 開発環境ではローカルメモリ上で完結する async アダプターを利用
+
+test:
+  adapter: async
+  # テスト環境でも async（または test）を指定し、
+  # solid_cable の connects_to 呼び出しを回避
+
 production:
   adapter: solid_cable
   connects_to:
@@ -9,4 +18,3 @@ production:
       writing: cable_production
   polling_interval: 0.1.seconds
   message_retention: 1.day
-
