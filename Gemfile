@@ -17,7 +17,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 gem 'httparty' # APIリクエスト用
-gem 'dotenv-rails', '3.1.0'
+gem 'dotenv-rails', '3.1.8'
 gem "tailwindcss-rails"
 gem 'devise'
 
