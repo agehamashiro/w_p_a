@@ -1,4 +1,4 @@
-name: RSpec
+name: CI
 
 on:
   push:
@@ -7,7 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+  rspec:
+    name: Run RSpec
     runs-on: ubuntu-latest
 
     services:
@@ -33,7 +34,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # あなたの使っているバージョンに合わせてください
+          ruby-version: '3.1'
           bundler-cache: true
 
       - name: Install dependencies
@@ -45,5 +46,25 @@ jobs:
           bin/rails db:create
           bin/rails db:schema:load
 
-      - name: Run tests
+      - name: Run RSpec
         run: bundle exec rspec
+
+  rubocop:
+    name: Run RuboCop
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
+

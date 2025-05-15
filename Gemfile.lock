@@ -457,6 +457,8 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.2.2.1)
   rspec-rails
+  rubocop
+  rubocop-rails
   rubocop-rails-omakase
   selenium-webdriver
   shoulda-matchers
