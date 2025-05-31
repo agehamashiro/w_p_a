@@ -1,14 +1,25 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
+  # ユーザー登録（新規登録画面表示・登録処理）
+  get 'signup', to: 'users#new', as: 'signup'
+  resources :users, only: [:new, :create]
 
+  # セッション管理（ログイン画面表示・ログイン処理・ログアウト処理）
+  get 'login', to: 'sessions#new', as: 'login'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy', as: 'logout'
+  
+  get 'mypage', to: 'users#show', as: 'mypage'
+  patch 'mypage', to: 'users#update'
+  # ワイン関連
+  resources :wines, only: [:new, :create, :show]
+
+  # リダイレクト
   get 'www.winepair.jp', to: redirect('https://winepair.jp')
-  get '/mypage', to: 'users#show', as: 'mypage'
 
+  # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # ルートパス
   root 'wines#new'
-  resources :wines, only: [:new, :create, :show]
 end
 

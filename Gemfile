@@ -18,12 +18,16 @@ gem "thruster", require: false
 
 gem "httparty"
 gem "tailwindcss-rails"
+<<<<<<< HEAD
 gem "devise"
 gem "omniauth"
 gem "omniauth-google-oauth2"
 
 # ✅ 本番環境でも .env を読み込めるようにグループ外へ移動
 gem 'dotenv-rails', groups: [:development, :test]
+=======
+gem 'bcrypt', '~> 3.1.7'
+>>>>>>> 6f05ebe (deveseなしログイン)
 
 group :development, :test do
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"

@@ -1,2 +1,69 @@
-<h1 class="text-2xl font-bold mb-4">マイページ</h1>
-<p>ようこそ、<%= @user.email %> さん！</p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>マイページ - ワインペアリング提案</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Kaisei Decol', serif; }
+    .label-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    label {
+      font-size: clamp(12px, 1.5vw, 24px);
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex justify-center pt-0 px-0">
+
+  <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-4 sm:px-10 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 text-center space-y-10">
+
+    <h1 class="text-5xl text-gray-800 tracking-wide">マイページ - ユーザー情報編集</h1>
+
+    <%= form_with model: @user, url: mypage_path, local: true, method: :patch, class: "space-y-4 text-gray-700" do |f| %>
+      <div class="label-container">
+        <%= f.label :name, "お名前", class: "block mb-2 text-xl" %>
+        <%= f.text_field :name, required: true, class: "w-full border border-gray-300 rounded-md p-3" %>
+      </div>
+
+      <div class="label-container">
+        <%= f.label :email, "メールアドレス", class: "block mb-2 text-xl" %>
+        <%= f.email_field :email, required: true, class: "w-full border border-gray-300 rounded-md p-3" %>
+      </div>
+
+      <div class="label-container">
+        <%= f.label :password, "パスワード（変更する場合のみ入力）", class: "block mb-2 text-xl" %>
+        <%= f.password_field :password, class: "w-full border border-gray-300 rounded-md p-3", autocomplete: "new-password" %>
+      </div>
+
+      <div class="label-container">
+        <%= f.label :password_confirmation, "パスワード確認", class: "block mb-2 text-xl" %>
+        <%= f.password_field :password_confirmation, class: "w-full border border-gray-300 rounded-md p-3", autocomplete: "new-password" %>
+      </div>
+
+      <div>
+        <%= f.submit "更新する", class: "bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition" %>
+      </div>
+    <% end %>
+
+  </div>
+
+</body>
+</html>

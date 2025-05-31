@@ -1,4 +1,3 @@
-<!-- app/views/shared/_header.html.erb -->
 <header class="fixed top-0 left-0 z-50 w-full bg-white shadow">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
@@ -11,32 +10,24 @@
         </svg>
       </button>
 
-      <nav class="hidden md:flex space-x-4 items-center">
-        <% if user_signed_in? %>
-          <%= link_to "マイページ", mypage_path, class: "text-gray-700 hover:text-red-500" %>
-          <%= button_to "ログアウト", destroy_user_session_path, method: :delete,
-                class: "text-gray-700 hover:text-red-500 bg-transparent border-none p-0 cursor-pointer",
-                form: { class: "inline" } %>
-        <% else %>
-          <%= link_to "ログイン", new_user_session_path, class: "text-gray-700 hover:text-red-500" %>
-          <%= link_to "新規登録", new_user_registration_path, class: "text-gray-700 hover:text-red-500" %>
-        <% end %>
-      </nav>
-    </div>
-
+      <nav class="hidden md:flex space-x-4">
+      <% if user_signed_in? %>
+        <%= link_to "マイページ", mypage_path, class: "text-gray-700 hover:text-red-500" %>
+        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "text-gray-700 hover:text-red-500" %>
+      <% else %>
+        <%= link_to "ログイン", login_path, class: "text-gray-700 hover:text-red-500" %>
+        <%= link_to "新規登録", signup_path, class: "text-gray-700 hover:text-red-500" %>
+      <% end %>
+    </nav>
+    
     <div id="mobile-menu" class="md:hidden hidden mt-2 space-y-2">
       <% if user_signed_in? %>
         <%= link_to "マイページ", mypage_path, class: "block text-gray-700 hover:text-red-500" %>
-        <%= button_to "ログアウト", destroy_user_session_path, method: :delete,
-              class: "block text-gray-700 hover:text-red-500 bg-transparent border-none p-0 cursor-pointer",
-              form: { class: "inline" } %>
+        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "block text-gray-700 hover:text-red-500" %>
       <% else %>
-        <%= link_to "ログイン", new_user_session_path, class: "block text-gray-700 hover:text-red-500" %>
-        <%= link_to "新規登録", new_user_registration_path, class: "block text-gray-700 hover:text-red-500" %>
+        <%= link_to "ログイン", login_path, class: "block text-gray-700 hover:text-red-500" %>
+        <%= link_to "新規登録", signup_path, class: "block text-gray-700 hover:text-red-500" %>
       <% end %>
     </div>
   </div>
 </header>
-
-
-
