@@ -1,0 +1,48 @@
+ja:
+  devise:
+    failure:
+      already_authenticated: "すでにログインしています。"
+      unauthenticated: "ログインしてください。"
+      unconfirmed: "メールアドレスの確認が必要です。"
+      locked: "アカウントがロックされています。"
+      invalid: "メールアドレスまたはパスワードが違います。"
+      timeout: "セッションがタイムアウトしました。再度ログインしてください。"
+      inactive: "アカウントが有効化されていません。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      updated: "アカウント情報を更新しました。"
+      destroyed: "アカウントを削除しました。"
+    passwords:
+      send_instructions: "パスワード再設定の案内をメールで送信しました。"
+      updated: "パスワードを変更しました。"
+    confirmations:
+      send_instructions: "確認メールを送信しました。"
+      confirmed: "メールアドレスの確認が完了しました。"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: "を受け入れてください。"
+      blank: "を入力してください。"
+      confirmation: "と%{attribute}の入力が一致しません。"
+      empty: "を入力してください。"
+      equal_to: "は%{count}でなければなりません。"
+      even: "は偶数でなければなりません。"
+      exclusion: "は予約済みの値です。"
+      greater_than: "は%{count}より大きくなければなりません。"
+      greater_than_or_equal_to: "は%{count}以上でなければなりません。"
+      inclusion: "は一覧にありません。"
+      invalid: "は不正な値です。"
+      less_than: "は%{count}より小さくなければなりません。"
+      less_than_or_equal_to: "は%{count}以下でなければなりません。"
+      not_a_number: "は数値で入力してください。"
+      not_an_integer: "は整数で入力してください。"
+      odd: "は奇数でなければなりません。"
+      other_than: "は%{count}以外の値にしてください。"
+      present: "はすでに存在します。"
+      taken: "はすでに使用されています。"
+      too_long: "は%{count}文字以内で入力してください。"
+      too_short: "は%{count}文字以上で入力してください。"
+      wrong_length: "は%{count}文字で入力してください。"

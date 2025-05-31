@@ -1,0 +1,15 @@
+current directory: /home/agehamashiro/w_p_a/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+/home/agehamashiro/.rbenv/versions/3.1.4/bin/ruby -I /home/agehamashiro/.rbenv/versions/3.1.4/lib/ruby/3.1.0 extconf.rb
+creating Makefile
+
+current directory: /home/agehamashiro/w_p_a/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250531-94687-3j2c1k sitelibdir\=./.gem.20250531-94687-3j2c1k clean
+
+current directory: /home/agehamashiro/w_p_a/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250531-94687-3j2c1k sitelibdir\=./.gem.20250531-94687-3j2c1k
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /home/agehamashiro/w_p_a/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250531-94687-3j2c1k sitelibdir\=./.gem.20250531-94687-3j2c1k install
+/usr/bin/install -c -m 0755 cparse.so ./.gem.20250531-94687-3j2c1k/racc

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>新規登録 - WinePairing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Kaisei Decol', serif;
+    }
+    label {
+      font-size: clamp(12px, 1.5vw, 24px);
+      display: block;
+    }
+    input {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 1rem;
+    }
+    .error-messages {
+      background-color: #fee2e2; /* light red */
+      border: 1px solid #fca5a5;
+      color: #b91c1c; /* dark red */
+      padding: 10px;
+      margin-bottom: 1.5rem;
+      border-radius: 6px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex justify-center pt-0 px-0">
+
+  <div class="mx-auto w-full max-w-xl bg-white border-4 border-[#800020] shadow-2xl px-4 sm:px-10 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 text-center space-y-10">
+
+    <h1 class="text-5xl text-gray-800 tracking-wide">新規登録</h1>
+
+    <% if resource.errors.any? %>
+      <div class="error-messages">
+        <h2><%= pluralize(resource.errors.count, "件のエラー") %>が発生しました:</h2>
+        <ul>
+          <% resource.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="space-y-6 text-gray-700 text-left">
+
+        <div>
+          <%= f.label :email, "メールアドレス", class: "mb-2 text-xl" %>
+          <%= f.email_field :email, autofocus: true, class: "w-full border border-gray-300 rounded-md p-3" %>
+        </div>
+
+        <div>
+          <%= f.label :password, "パスワード（6文字以上）", class: "mb-2 text-xl" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "w-full border border-gray-300 rounded-md p-3" %>
+        </div>
+
+        <div>
+          <%= f.label :password_confirmation, "パスワード（確認）", class: "mb-2 text-xl" %>
+          <%= f.password_field :password_confirmation, class: "w-full border border-gray-300 rounded-md p-3" %>
+        </div>
+
+        <div>
+          <%= f.submit "登録する", class: "bg-[#800020] hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition" %>
+        </div>
+
+      </div>
+    <% end %>
+
+    <div class="text-center text-sm text-[#800020]">
+      <%= link_to "すでにアカウントをお持ちの方はこちら", new_session_path(resource_name), class: "hover:underline" %>
+    </div>
+
+  </div>
+
+</body>
+</html>
+

@@ -1,0 +1,16 @@
+current directory: /home/agehamashiro/w_p_a/vendor/bundle/ruby/3.1.0/gems/debug-1.10.0/ext/debug
+/home/agehamashiro/.rbenv/versions/3.1.4/bin/ruby -I /home/agehamashiro/.rbenv/versions/3.1.4/lib/ruby/3.1.0 extconf.rb
+creating Makefile
+
+current directory: /home/agehamashiro/w_p_a/vendor/bundle/ruby/3.1.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250531-94687-hkkz9x sitelibdir\=./.gem.20250531-94687-hkkz9x clean
+
+current directory: /home/agehamashiro/w_p_a/vendor/bundle/ruby/3.1.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250531-94687-hkkz9x sitelibdir\=./.gem.20250531-94687-hkkz9x
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /home/agehamashiro/w_p_a/vendor/bundle/ruby/3.1.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250531-94687-hkkz9x sitelibdir\=./.gem.20250531-94687-hkkz9x install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20250531-94687-hkkz9x/debug

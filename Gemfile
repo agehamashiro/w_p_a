@@ -8,7 +8,7 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
@@ -16,23 +16,23 @@ gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
 
-gem 'httparty' # APIリクエスト用
-gem 'dotenv-rails', '3.1.0'
+gem "httparty"
 gem "tailwindcss-rails"
-gem 'devise'
+gem "devise"
+gem "omniauth"
+gem "omniauth-google-oauth2"
+
+# ✅ 本番環境でも .env を読み込めるようにグループ外へ移動
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "brakeman", "~> 7.0.2", require: false
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
   gem "rubocop-rails-omakase", require: false
-
-  # ✅ Rubocop関連Gemの追加
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
-
-  # ✅ RSpec本体
-  gem 'rspec-rails'
-  gem 'shoulda-matchers'
+  gem "rspec-rails"
+  gem "shoulda-matchers"
 end
 
 group :development do
@@ -42,9 +42,8 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
-  gem 'webdrivers'
-  gem 'webmock'
-
+  gem "webdrivers"
+  gem "webmock"
   gem "factory_bot_rails"
   gem "faker"
   gem "database_cleaner-active_record"
