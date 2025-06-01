@@ -20,6 +20,9 @@ gem "httparty"
 gem "tailwindcss-rails"
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
 group :development, :test do
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "brakeman", "~> 7.0.2", require: false

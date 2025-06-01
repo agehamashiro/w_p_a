@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy', as: 'logout'
   
+  get '/auth/:provider/callback', to: 'sessions#google_auth'
+  get '/auth/failure', to: redirect('/')
+
   get 'mypage', to: 'users#show', as: 'mypage'
   patch 'mypage', to: 'users#update'
   # ワイン関連

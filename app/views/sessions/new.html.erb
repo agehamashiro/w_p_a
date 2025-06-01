@@ -52,6 +52,7 @@
 
       <div>
         <%= f.submit "ログイン", class: "bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition" %>
+        <%= link_to "Googleでログイン", "/auth/google_oauth2", class: "text-gray-700 hover:text-red-500" %>
       </div>
     <% end %>
 
