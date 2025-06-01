@@ -7,7 +7,24 @@
     body {
       font-family: 'Kaisei Decol', serif;
     }
-  
+    .star-rating {
+      direction: rtl;
+      display: inline-flex;
+    }
+    .star-rating input[type="radio"] {
+      display: none;
+    }
+    .star-rating label {
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .star-rating input[type="radio"]:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: #f5c518;
+    }
   </style>
 </head>
 
@@ -15,32 +32,62 @@
   <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-5 py-5 text-center space-y-5">
 
     <h2 class="text-5xl text-gray-800 tracking-wide mb-10">おすすめの料理</h2>
-    
+
     <% if @error_message.present? %>
-    <div class="text-gray-800 text-left text-xl font-semibold my-6">
-      <% case @error_message %>
-      <% when "地域名エラー" %>
-        　入力されたワインの産地が正しくないかもしれませんので、入力する場合は例えば、「フランス」や「チリ」などを試してみてください。
-      <% when "品種エラー" %>
-        　入力されたワインの品種が正しくないかもしれませんので、入力する場合は例えば、「赤」「白」などのワインタイプや「メルロー」や「シャルドネ」などの品種がいいかもしれません。
-      <% when "好みエラー" %>
-        　好みの入力がちょっとわかりにくいかもしれません。もっと具体的な料理の種類や味の傾向を入力してみてくださいね！ 例えば、「和風料理」や「肉料理」などが良いかも。
-      <% when "食材エラー" %>
-        　入力された食材は正しくないかもしれません。別の食材を試してみてくださいね。例えば、「鶏肉」や「魚類」などがオススメです！
-      <% else %>
-        不明なエラーが発生しました。
-      <% end %>
-    </div>
+      <div class="text-gray-800 text-left text-xl font-semibold my-6">
+        <% case @error_message %>
+        <% when "地域名エラー" %>
+          入力されたワインの産地が正しくないかもしれませんので、「フランス」や「チリ」などを試してみてください。
+        <% when "品種エラー" %>
+          入力された品種が正しくないかもしれません。「赤」「白」などのタイプや、「メルロー」「シャルドネ」などがオススメです。
+        <% when "好みエラー" %>
+          「和風料理」「肉料理」など、より具体的な料理タイプを入力してみてください。
+        <% when "食材エラー" %>
+          「鶏肉」「魚類」など、別の食材を試してみてください。
+        <% else %>
+          不明なエラーが発生しました。
+        <% end %>
+      </div>
     <% elsif @pairing_suggestion.is_a?(Array) && @pairing_suggestion.present? %>
       <ul class="space-y-5 text-left text-xl">
-        <% @pairing_suggestion.each do |dish| %>
-          <li class="border border-400 border-[#800020]  p-4 rounded-md shadow-sm">
+        <% @pairing_suggestion.each_with_index do |dish, index| %>
+          <li class="border border-400 border-[#800020] p-4 rounded-md shadow-sm">
             <p><strong>料理名:</strong> <%= dish["料理名"] || "データなし" %></p>
             <p><strong>説明:</strong> <%= dish["説明"] || "データなし" %></p>
+
             <% if dish["image_url"].present? %>
               <div class="mt-2">
-              <%= image_tag(dish["image_url"], alt: dish["料理名"], width: 200, class: "mx-auto rounded-2xl") %>              
+                <%= image_tag(dish["image_url"], alt: dish["料理名"], width: 200, class: "mx-auto rounded-2xl") %>
               </div>
+            <% end %>
+
+            <% if user_signed_in? && @suggestion.present? %>
+              <div class="mt-6">
+                <h4 class="text-xl font-semibold mb-2">この料理を評価する</h4>
+                <%= form_with(model: Review.new, url: reviews_path) do |f| %>
+                  <%= f.hidden_field :suggestion_id, value: @suggestion.id %>
+                  <%= f.hidden_field :dish_name, value: dish["料理名"] %>
+
+                  <div class="mb-2">
+                    <%= f.label :rating, "評価（1〜5）", class: "block font-semibold mb-1" %>
+                    <div class="star-rating">
+                      <% 5.downto(1) do |i| %>
+                        <%= f.radio_button :rating, i, id: "star#{index}_#{i}" %>
+                        <label for="star<%= index %>_<%= i %>">★</label>
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <%= f.label :comment, "コメント（任意）", class: "block font-semibold mb-1" %>
+                    <%= f.text_area :comment, rows: 2, class: "w-full border rounded p-2" %>
+                  </div>
+
+                  <%= f.submit "評価を投稿", class: "bg-[#800020] hover:bg-red-900 text-white font-semibold py-1 px-3 rounded" %>
+                <% end %>
+              </div>
+            <% else %>
+              <p class="mt-4 text-gray-700">ログインするとこの料理を評価できます。</p>
             <% end %>
           </li>
         <% end %>
@@ -49,10 +96,10 @@
       <p class="text-red-600 font-medium">料理の提案が取得できませんでした。</p>
     <% end %>
 
-    <p class="text-sm text-gray-700 mb-4">※提案される料理はAIによる回答です。内容の情報については確認の上、ご利用ください。</p>
+    <p class="text-sm text-gray-700 mt-10">※提案される料理はAIによる回答です。内容の情報については確認の上、ご利用ください。</p>
 
     <div class="space-y-1 text-left text-mg">
-      <p><strong>ペアリング入力内容</strong>
+      <p><strong>ペアリング入力内容</strong></p>
       <p><strong>ワインの価格帯:</strong>
         <%= case @wine.price_range
             when '500-1000' then '500～1000円'
@@ -61,7 +108,6 @@
             else '指定なし'
             end %>
       </p>
-
       <p><strong>産地:</strong> <%= @wine.region.presence || "指定なし" %></p>
       <p><strong>品種:</strong> <%= @wine.variety.presence || "指定なし" %></p>
       <p><strong>料理の好み:</strong> <%= @wine.preference.presence || "指定なし" %></p>

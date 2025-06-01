@@ -13,8 +13,14 @@ Rails.application.routes.draw do
 
   get 'mypage', to: 'users#show', as: 'mypage'
   patch 'mypage', to: 'users#update'
+
+  resources :reviews, only: [:create]
+
   # ワイン関連
   resources :wines, only: [:new, :create, :show]
+
+  # 提案料理の詳細表示用ルーティングを追加
+  resources :suggestions, only: [:show]
 
   # リダイレクト
   get 'www.winepair.jp', to: redirect('https://winepair.jp')
@@ -25,4 +31,3 @@ Rails.application.routes.draw do
   # ルートパス
   root 'wines#new'
 end
-

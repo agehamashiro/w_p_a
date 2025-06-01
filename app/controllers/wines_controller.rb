@@ -21,21 +21,35 @@ class WinesController < ApplicationController
     @wine = Wine.find(params[:id])
     @wine.price_range = params[:price_range]
 
-    result = fetch_pairing_suggestion(@wine)
-
-    if result.is_a?(String) && result.match?(/地域名エラー|品種エラー|好みエラー|食材エラー/)
-      @error_message = result
-      @pairing_suggestion = nil
-    else
-      @pairing_suggestion = result
+    if @wine.suggestions.any?
+      @suggestion = @wine.suggestions.last
+      @pairing_suggestion = JSON.parse(@suggestion.data)
       @error_message = nil
+    else
+      result = fetch_pairing_suggestion(@wine)
+
+      if result.is_a?(String) && result.match?(/地域名エラー|品種エラー|好みエラー|食材エラー/)
+        @error_message = result
+        @pairing_suggestion = nil
+      else
+        @pairing_suggestion = result
+        @error_message = nil
+
+        first_dish = result.first
+        @suggestion = Suggestion.create(
+          wine: @wine,
+          dish_name: first_dish["料理名"],
+          ingredients: first_dish["食材"] || "",
+          data: result.to_json
+        )
+      end
     end
   end
 
   private
 
   def wine_params
-    params.require(:wine).permit(:price, :region, :variety, :preference, :ingredient)
+    params.require(:wine).permit(:price, :price_range, :region, :variety, :preference, :ingredient)
   end
 
   def fetch_pairing_suggestion(wine)

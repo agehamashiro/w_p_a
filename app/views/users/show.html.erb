@@ -63,6 +63,25 @@
       </div>
     <% end %>
 
+    <div class="mt-16 text-left">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-6 border-b pb-2 border-gray-300">評価履歴</h2>
+
+      <% if @reviews.present? %>
+        <% @reviews.each do |review| %>
+          <div class="bg-gray-100 rounded-md p-4 mb-6 shadow-sm border-l-4 border-[#800020]">
+            <p class="text-xl">
+              <strong>提案料理:</strong>
+              <%= link_to review.suggestion.dish_name, suggestion_path(review.suggestion), class: "text-blue-700 hover:underline" %>
+            </p>
+            <p class="mt-1"><strong>評価:</strong> <span class="text-yellow-500 text-xl">★</span> <%= review.rating %></p>
+            <p class="mt-1"><strong>コメント:</strong> <%= review.comment.presence || "（コメントなし）" %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-gray-600 text-lg">まだ評価履歴がありません。</p>
+      <% end %>
+    </div>
+
   </div>
 
 </body>

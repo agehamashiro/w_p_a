@@ -13,7 +13,7 @@
       <nav class="hidden md:flex space-x-4">
       <% if user_signed_in? %>
         <%= link_to "マイページ", mypage_path, class: "text-gray-700 hover:text-red-500" %>
-        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "text-gray-700 hover:text-red-500" %>
+        <%= link_to "ログアウト", logout_path, method: :delete, class: "text-gray-700 hover:text-red-500" %>
       <% else %>
         <%= link_to "ログイン", login_path, class: "text-gray-700 hover:text-red-500" %>
         <%= link_to "新規登録", signup_path, class: "text-gray-700 hover:text-red-500" %>
@@ -23,7 +23,7 @@
     <div id="mobile-menu" class="md:hidden hidden mt-2 space-y-2">
       <% if user_signed_in? %>
         <%= link_to "マイページ", mypage_path, class: "block text-gray-700 hover:text-red-500" %>
-        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "block text-gray-700 hover:text-red-500" %>
+        <%= link_to "ログアウト", logout_path, method: :delete, class: "block text-gray-700 hover:text-red-500" %>
       <% else %>
         <%= link_to "ログイン", login_path, class: "block text-gray-700 hover:text-red-500" %>
         <%= link_to "新規登録", signup_path, class: "block text-gray-700 hover:text-red-500" %>

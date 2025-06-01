@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_31_104534) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_01_072638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "suggestion_id", null: false
+    t.integer "rating"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "dish_name"
+    t.index ["suggestion_id"], name: "index_reviews_on_suggestion_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "suggestions", force: :cascade do |t|
+    t.bigint "wine_id", null: false
+    t.string "dish_name"
+    t.text "ingredients"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "data"
+    t.index ["wine_id"], name: "index_suggestions_on_wine_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -31,4 +53,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_31_104534) do
     t.string "preference"
     t.string "ingredient"
   end
+
+  add_foreign_key "reviews", "suggestions"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "suggestions", "wines"
 end
