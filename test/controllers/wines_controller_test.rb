@@ -2,17 +2,32 @@ require "test_helper"
 
 class WinesControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get wines_new_url
+    get new_wine_url
     assert_response :success
   end
 
   test "should get create" do
-    get wines_create_url
-    assert_response :success
+    post wines_url, params: {
+      wine: {
+        price: 1500,
+        region: "フランス",
+        variety: "ピノ・ノワール",
+        preference: "さっぱり",
+        ingredient: "鶏肉"
+      }
+    }
+    assert_response :redirect
   end
 
   test "should get show" do
-    get wines_show_url
+    wine = Wine.create(
+      price: 1500,
+      region: "フランス",
+      variety: "ピノ・ノワール",
+      preference: "さっぱり",
+      ingredient: "鶏肉"
+    )
+    get wine_url(wine)
     assert_response :success
   end
 end
