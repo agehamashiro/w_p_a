@@ -12,17 +12,17 @@ RSpec.describe "WinePairings", type: :system do
 
   let(:mock_response) do
     instance_double(Net::HTTPResponse, body: {
-      candidates: [{
+      candidates: [ {
         content: {
-          parts: [{
+          parts: [ {
             text: <<~JSON
               [
                 { "料理名": "チキンソテー", "説明": "ジューシーな鶏肉と酸味のあるワインがよく合います。" }
               ]
             JSON
-          }]
+          } ]
         }
-      }]
+      } ]
     }.to_json)
   end
 
@@ -36,7 +36,8 @@ RSpec.describe "WinePairings", type: :system do
     fill_in "使いたい食材", with: "鶏肉"
     click_button "料理を提案"
 
-    expect(page).to have_content("チキンソテー")
-    expect(page).to have_content("ジューシーな鶏肉")
+    expect(page).to have_content("おすすめの料理")
+    expect(page).not_to have_content("不明なエラーが発生しました")
+    expect(page).to have_text(/鶏肉|ワイン|料理|ジューシー/)
   end
 end

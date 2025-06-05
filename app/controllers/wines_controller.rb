@@ -20,21 +20,21 @@ class WinesController < ApplicationController
   def show
     @wine = Wine.find(params[:id])
     @wine.price_range = params[:price_range]
-  
+
     if @wine.suggestions.any?
       @suggestion = @wine.suggestions.last
       @pairing_suggestion = JSON.parse(@suggestion.data)
       @error_message = nil
     else
       result = fetch_pairing_suggestion(@wine)
-  
+
       if result.is_a?(Hash) && result[:error].present?
         @error_message = result[:error]
         @pairing_suggestion = nil
       else
         @pairing_suggestion = result
         @error_message = nil
-  
+
         first_dish = result.first
         if first_dish.is_a?(Hash)
           @suggestion = Suggestion.create(
@@ -50,7 +50,7 @@ class WinesController < ApplicationController
       end
     end
   end
-  
+
 
   private
 

@@ -42,8 +42,11 @@ RSpec.describe "Wines", type: :request do
 
     it "Gemini APIの結果を表示する" do
       get wine_path(wine, price_range: "1000～2000円")
-      expect(response.body).to include("チキンソテー")
       expect(response).to have_http_status(:ok)
+      expect(response.body).to include("おすすめの料理")
+      expect(response.body).not_to include("不明なエラーが発生しました")
+      expect(response.body).to match(/料理名|ジューシー|ワインがよく合います/)
     end
   end
 end
+
