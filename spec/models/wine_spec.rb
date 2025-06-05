@@ -26,7 +26,7 @@ RSpec.describe Wine, type: :model do
       it 'price_rangeが空なら無効' do
         wine = WineWithValidation.new(price_range: nil)
         expect(wine).not_to be_valid
-        expect(wine.errors[:price_range]).to include("can't be blank")
+        expect(wine.errors[:price_range]).to include("を入力してください。")
       end
 
       it 'price_rangeがあれば有効' do
