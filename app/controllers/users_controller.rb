@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def new
     @user = User.new
   end
@@ -18,7 +17,7 @@ class UsersController < ApplicationController
     @user = current_user
     @reviews = @user.reviews.includes(:suggestion)
   end
-  
+
   def update
     @user = current_user
     if @user.update(user_params)
@@ -34,4 +33,3 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
-

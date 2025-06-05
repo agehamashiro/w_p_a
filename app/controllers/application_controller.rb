@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?
-  protect_from_forgery with: :exception, unless: -> { request.path.start_with?('/auth') }
+  protect_from_forgery with: :exception, unless: -> { request.path.start_with?("/auth") }
   private
 
   def current_user
@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    redirect_to login_path, alert: 'ログインしてください' unless user_signed_in?
+    redirect_to login_path, alert: "ログインしてください" unless user_signed_in?
   end
 end

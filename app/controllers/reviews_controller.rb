@@ -9,9 +9,9 @@ class ReviewsController < ApplicationController
       redirect_back fallback_location: root_path, alert: "評価の投稿に失敗しました。"
     end
   end
-  
+
   private
-  
+
   def review_params
     params.require(:review).permit(:suggestion_id, :dish_name, :rating, :comment)
   end

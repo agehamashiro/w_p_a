@@ -98,26 +98,26 @@ class WinesController < ApplicationController
     response = http.request(request)
     body_text = response.body.force_encoding('UTF-8')
     Rails.logger.info "🔹Raw Gemini API Response: #{body_text}"
-  
+
     data = JSON.parse(body_text)
     suggestion_text = data.dig('candidates', 0, 'content', 'parts', 0, 'text')&.strip
-  
+
     return { error: suggestion_text } if ["地域名エラー", "品種エラー", "好みエラー", "食材エラー"].include?(suggestion_text)
-  
+
     cleaned_text = suggestion_text.gsub(/```json|```/, "").strip
     parsed_suggestion = JSON.parse(cleaned_text)
-  
+
     unless parsed_suggestion.is_a?(Array) &&
            parsed_suggestion.all? { |d| d.is_a?(Hash) && d.key?("料理名") && d.key?("説明") }
       return { error: "APIのレスポンスが予期しない形式です" }
     end
-  
+
     parsed_suggestion.each do |dish|
       image_name = "#{dish["料理名"]}.jpg"
       image_path = Rails.root.join('public', 'images', image_name)
       dish["image_url"] = image_exists?(image_path) ? "/images/#{image_name}" : nil
     end
-  
+
     parsed_suggestion
   rescue JSON::ParserError => e
     Rails.logger.error "レスポンス解析エラー: #{e.message}"
