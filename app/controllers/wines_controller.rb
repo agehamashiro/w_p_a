@@ -51,7 +51,6 @@ class WinesController < ApplicationController
     end
   end
 
-
   private
 
   def wine_params
