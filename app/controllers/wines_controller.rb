@@ -20,31 +20,37 @@ class WinesController < ApplicationController
   def show
     @wine = Wine.find(params[:id])
     @wine.price_range = params[:price_range]
-
+  
     if @wine.suggestions.any?
       @suggestion = @wine.suggestions.last
       @pairing_suggestion = JSON.parse(@suggestion.data)
       @error_message = nil
     else
       result = fetch_pairing_suggestion(@wine)
-
-      if result.is_a?(String) && result.match?(/地域名エラー|品種エラー|好みエラー|食材エラー/)
-        @error_message = result
+  
+      if result.is_a?(Hash) && result[:error].present?
+        @error_message = result[:error]
         @pairing_suggestion = nil
       else
         @pairing_suggestion = result
         @error_message = nil
-
+  
         first_dish = result.first
-        @suggestion = Suggestion.create(
-          wine: @wine,
-          dish_name: first_dish["料理名"],
-          ingredients: first_dish["食材"] || "",
-          data: result.to_json
-        )
+        if first_dish.is_a?(Hash)
+          @suggestion = Suggestion.create(
+            wine: @wine,
+            dish_name: first_dish["料理名"],
+            ingredients: first_dish["食材"] || "",
+            data: result.to_json
+          )
+        else
+          Rails.logger.error("想定外のdish形式: #{first_dish.inspect}")
+          @suggestion = nil
+        end
       end
     end
   end
+  
 
   private
 
