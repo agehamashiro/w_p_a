@@ -36,9 +36,15 @@
   <body class="bg-gray-50 text-gray-800">
     <%= render "shared/header" %>
 
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <main class="container mx-auto mt-28 px-5 flex flex-col">
+    <% flash.each do |key, message| %>
+      <div class="flash <%= key %> bg-<%= key == "notice" ? "green" : "red" %>-100 border-l-4 border-<%= key == "notice" ? "green" : "red" %>-500 text-<%= key == "notice" ? "green" : "red" %>-700 p-4 mb-4 rounded">
+        <p><%= message %></p>
+      </div>
+    <% end %>
+
+    <%= yield %>
+  </main>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
