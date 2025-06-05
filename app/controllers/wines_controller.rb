@@ -54,7 +54,7 @@ class WinesController < ApplicationController
 
   def fetch_pairing_suggestion(wine)
     api_key = ENV['GEMINI_API_KEY']
-    return "APIキーが設定されていません" if api_key.blank?
+    return { error: "APIキーが設定されていません" } if api_key.blank?
 
     url = URI("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=#{api_key}")
     price_text = case wine.price_range
@@ -98,33 +98,30 @@ class WinesController < ApplicationController
     response = http.request(request)
     body_text = response.body.force_encoding('UTF-8')
     Rails.logger.info "🔹Raw Gemini API Response: #{body_text}"
-
+  
     data = JSON.parse(body_text)
     suggestion_text = data.dig('candidates', 0, 'content', 'parts', 0, 'text')&.strip
-
-    # 🔸 エラー判定
-    return suggestion_text if ["地域名エラー", "品種エラー", "好みエラー", "食材エラー"].include?(suggestion_text)
-
-    # JSON部分のみを抽出
+  
+    return { error: suggestion_text } if ["地域名エラー", "品種エラー", "好みエラー", "食材エラー"].include?(suggestion_text)
+  
     cleaned_text = suggestion_text.gsub(/```json|```/, "").strip
     parsed_suggestion = JSON.parse(cleaned_text)
-
+  
     unless parsed_suggestion.is_a?(Array) &&
            parsed_suggestion.all? { |d| d.is_a?(Hash) && d.key?("料理名") && d.key?("説明") }
-      return ["APIのレスポンスが予期しない形式です"]
+      return { error: "APIのレスポンスが予期しない形式です" }
     end
-
-    # 画像URL追加
+  
     parsed_suggestion.each do |dish|
       image_name = "#{dish["料理名"]}.jpg"
       image_path = Rails.root.join('public', 'images', image_name)
       dish["image_url"] = image_exists?(image_path) ? "/images/#{image_name}" : nil
     end
-
+  
     parsed_suggestion
   rescue JSON::ParserError => e
     Rails.logger.error "レスポンス解析エラー: #{e.message}"
-    ["レスポンス解析エラー: #{e.message}"]
+    { error: "レスポンス解析エラー: #{e.message}" }
   end
 
   def image_exists?(image_path)
