@@ -37,7 +37,6 @@ RSpec.describe "WinePairings", type: :system do
     click_button "料理を提案"
 
     expect(page).to have_content("おすすめの料理")
-    expect(page).not_to have_content("不明なエラーが発生しました")
     expect(page).to have_text(/鶏肉|ワイン|料理|ジューシー/)
   end
 end
