@@ -35,7 +35,7 @@
 
   <div class="mx-auto w-full max-w-3xl bg-white border-4 border-[#800020] rounded-none shadow-2xl px-4 sm:px-10 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 text-center space-y-10">
 
-    <h1 class="text-5xl text-gray-800 tracking-wide">マイページ - ユーザー情報編集</h1>
+    <h1 class="text-5xl text-gray-800 tracking-wide">ユーザー情報編集</h1>
 
     <%= form_with model: @user, url: mypage_path, local: true, method: :patch, class: "space-y-4 text-gray-700" do |f| %>
       <div class="label-container">
@@ -63,22 +63,32 @@
       </div>
     <% end %>
 
-    <div class="mt-16 text-left">
-      <h2 class="text-3xl font-semibold text-gray-800 mb-6 border-b pb-2 border-gray-300">評価履歴</h2>
+<div class="mt-16 text-left">
+  <h2 class="text-3xl font-semibold text-gray-800 mb-6 border-b pb-2 border-gray-300">評価履歴</h2>
 
-      <% if @reviews.present? %>
-        <% @reviews.each do |review| %>
-          <div class="bg-gray-100 rounded-md p-4 mb-6 shadow-sm border-l-4 border-[#800020]">
-            <p class="text-xl">
-              <strong>提案料理:</strong>
-              <%= link_to review.suggestion.dish_name, suggestion_path(review.suggestion), class: "text-blue-700 hover:underline" %>
-            </p>
-            <p class="mt-1"><strong>評価:</strong> <span class="text-yellow-500 text-xl">★</span> <%= review.rating %></p>
-            <p class="mt-1"><strong>コメント:</strong> <%= review.comment.presence || "（コメントなし）" %></p>
-          </div>
+  <% if @reviews.present? %>
+    <% @reviews.each do |review| %>
+      <% suggestion = review.suggestion %>
+      <% dishes = suggestion.parsed_data %>
+      <% dish = dishes.find { |d| d["料理名"] == review.dish_name } %>
+
+      <div class="bg-gray-100 rounded-md p-4 mb-6 shadow-sm border-l-4 border-[#800020]">
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2"><%= review.dish_name %></h3>
+
+        <% if dish && dish["image_url"].present? %>
+          <img src="<%= dish["image_url"] %>" alt="<%= review.dish_name %>" class="w-64 h-48 object-cover rounded shadow mb-2">
         <% end %>
-      <% else %>
-        <p class="text-gray-600 text-lg">まだ評価履歴がありません。</p>
+
+        <% if dish && dish["説明"].present? %>
+          <p class="text-gray-700 mb-2"><%= dish["説明"] %></p>
+        <% end %>
+
+        <p class="mt-2 text-lg"><strong>評価:</strong> <span class="text-yellow-500">★</span> <%= review.rating %></p>
+        <p class="text-gray-600 text-sm mt-1"><strong>コメント:</strong> <%= review.comment.presence || "（コメントなし）" %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-gray-600 text-lg">まだ評価履歴がありません。</p>
       <% end %>
     </div>
 
