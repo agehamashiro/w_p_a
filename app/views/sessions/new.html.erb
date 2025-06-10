@@ -37,7 +37,7 @@
 
   <div class="mx-auto w-full max-w-md bg-white border-4 border-[#800020] rounded-none shadow-2xl px-8 py-10 text-center space-y-10">
 
-    <h1 class="text-5xl text-gray-800 tracking-wide">ワインペアリング提案 ログイン</h1>
+    <h1 class="text-5xl text-gray-800 tracking-wide">ログイン</h1>
 
     <%= form_with url: login_path, local: true, class: "space-y-6 text-gray-700" do |f| %>
       <div class="label-container">
@@ -51,9 +51,21 @@
       </div>
 
       <div>
-        <%= f.submit "ログイン", class: "bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition" %>
-        <%= link_to "Googleでログイン", "/auth/google_oauth2", class: "text-gray-700 hover:text-red-500" %>
-      </div>
+      <%= f.submit "ログイン", class: "bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-8 rounded-full shadow-md transition" %>
+    </div>
+    
+    <div class="my-6 flex items-center">
+      <div class="flex-grow border-t border-gray-300"></div>
+      <span class="mx-4 text-gray-500">または</span>
+      <div class="flex-grow border-t border-gray-300"></div>
+    </div>
+    
+    <div class="flex justify-center">
+      <%= link_to "/auth/google_oauth2", class: "w-full flex items-center justify-center border-2 border-gray-400 rounded-full py-2 px-4 bg-white shadow-sm hover:bg-gray-100 transition" do %>
+         <img src="/google.svg" alt="Google" class="h-6 w-6 mr-2">
+        <span class="text-gray-800 text-base" style="font-family: 'Kaisei Decol', serif;">Google で続行</span>
+      <% end %>
+    </div>
     <% end %>
 
     <p class="
