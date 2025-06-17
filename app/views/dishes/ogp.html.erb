@@ -15,7 +15,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="<%= @dish.name %>" />
-    <meta name="twitter:description" content="<%= @dish.description.truncate(100) %>" />
+    <meta name="twitter:description" content="<%= @dish.description.presence || "データなし" %>">
     <meta name="twitter:image" content="<%= @dish.image_url %>" />
     <meta name="twitter:site" content="@your_twitter_account" /> <!-- 任意 -->
   </head>
