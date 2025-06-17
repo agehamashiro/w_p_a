@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<head>
-  <title><%= @dish.name %> | ワインペアリング</title>
-  <meta property="og:title" content="<%= @dish.name %>">
-  <meta property="og:description" content="<%= @dish.description.truncate(100) %>">
-  <meta property="og:image" content="<%= @dish.image_url %>">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="<%= request.original_url %>">
-</head>
-<body>
-  <h1><%= @dish.name %></h1>
-  <p><%= @dish.description %></p>
-  <% if @dish.image_url.present? %>
-    <%= image_tag @dish.image_url %>
-  <% end %>
-</body>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="<%= @dish.name %>" />
+    <meta property="og:description" content="<%= @dish.description.truncate(100) %>" />
+    <meta property="og:image" content="<%= @dish.image_url %>" />
+    <meta property="og:url" content="<%= dish_url(@dish) %>" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ワインペアリング提案" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<%= @dish.name %>" />
+    <meta name="twitter:description" content="<%= @dish.description.truncate(100) %>" />
+    <meta name="twitter:image" content="<%= @dish.image_url %>" />
+    <meta name="twitter:site" content="@your_twitter_account" /> <!-- 任意 -->
+  </head>
+  <body>
+    Loading...
+  </body>
+</html>
