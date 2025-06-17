@@ -61,6 +61,7 @@
               </div>
             <% end %>
 
+            <!-- 評価機能 -->
             <% if user_signed_in? && @suggestion.present? %>
               <div class="mt-6">
                 <h4 class="text-xl font-semibold mb-2">この料理を評価する</h4>
@@ -89,6 +90,24 @@
             <% else %>
               <p class="mt-4 text-gray-700"></p>
             <% end %>
+
+            <!-- 共有ボタン -->
+            <button onclick="openShareModal(<%= index %>)" class="mt-4 bg-blue-500 text-white px-3 py-1 rounded">この料理を共有</button>
+
+            <!-- モーダル -->
+            <div id="share-modal-<%= index %>" class="hidden fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+              <div class="bg-white p-5 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-bold mb-3">シェアURL</h3>
+                <input type="text" readonly value="<%= dish_url(index) %>" class="w-full border p-2 mb-3" />
+                <a href="https://twitter.com/intent/tweet?url=<%= CGI.escape(dish_ogp_url(id: index)) %>" target="_blank">
+                  <img src="/assets/twitter-icon.png" alt="Twitterで共有" class="w-8 h-8 inline" />
+                </a>
+                <div class="mt-4">
+                  <button onclick="closeShareModal(<%= index %>)" class="bg-gray-300 px-4 py-2 rounded">閉じる</button>
+                </div>
+              </div>
+            </div>
+
           </li>
         <% end %>
       </ul>
@@ -116,4 +135,15 @@
 
     <%= link_to "別のワインで試す", new_wine_path, class: "inline-block mt-10 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-6 rounded-md transition" %>
   </div>
+
+  <!-- モーダル制御用JavaScript -->
+  <script>
+    function openShareModal(index) {
+      document.getElementById(`share-modal-${index}`).classList.remove('hidden');
+    }
+
+    function closeShareModal(index) {
+      document.getElementById(`share-modal-${index}`).classList.add('hidden');
+    }
+  </script>
 </body>

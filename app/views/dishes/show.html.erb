@@ -1,0 +1,24 @@
+<%# OGP・Twitterカードのメタタグをレイアウトに渡す %>
+<% content_for :meta_tags do %>
+  <!-- OGP -->
+  <meta property="og:title" content="<%= @dish.name %>" />
+  <meta property="og:description" content="<%= @dish.description.truncate(100) %>" />
+  <meta property="og:image" content="<%= @dish.image_url %>" />
+  <meta property="og:url" content="<%= dish_url(@dish) %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="ワインペアリング提案" />
+
+  <!-- Twitterカード -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= @dish.name %>" />
+  <meta name="twitter:description" content="<%= @dish.description.truncate(100) %>" />
+  <meta name="twitter:image" content="<%= @dish.image_url %>" />
+  <meta name="twitter:url" content="<%= dish_url(@dish) %>" />
+<% end %>
+
+<h1><%= @dish.name %></h1>
+<p><%= @dish.description %></p>
+
+<% if @dish.image_url.present? %>
+  <%= image_tag @dish.image_url, alt: "#{@dish.name} の画像" %>
+<% end %>

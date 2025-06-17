@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+  <title><%= @dish.name %> | ワインペアリング</title>
+  <meta property="og:title" content="<%= @dish.name %>">
+  <meta property="og:description" content="<%= @dish.description.truncate(100) %>">
+  <meta property="og:image" content="<%= @dish.image_url %>">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="<%= request.original_url %>">
+</head>
+<body>
+  <h1><%= @dish.name %></h1>
+  <p><%= @dish.description %></p>
+  <% if @dish.image_url.present? %>
+    <%= image_tag @dish.image_url %>
+  <% end %>
+</body>

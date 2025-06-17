@@ -8,20 +8,25 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!-- OGP設定 -->
-    <meta property="og:title" content="ワインペアリング提案 | ワイン初心者でも気軽に楽しめるWebアプリ">
-    <meta property="og:description" content="ワインの値段・産地・品種を入力すると、日本のスーパーで購入可能な食材を使った料理を提案。ワイン初心者でも気軽にペアリングを楽しめることを目指したサービスです。">
-    <meta property="og:image" content="https://winepair.jp/wine_ogp.jpg">
-    <meta property="og:url" content="https://winepair.jp/wine_ogp.jpg">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="ワインペアリング提案">
+    
+    <% if content_for?(:meta_tags) %>
+      <%= yield :meta_tags %>
+    <% else %>
+      <!-- デフォルトのOGP設定 -->
+      <meta property="og:title" content="ワインペアリング提案 | ワイン初心者でも気軽に楽しめるWebアプリ">
+      <meta property="og:description" content="ワインの値段・産地・品種を入力すると、日本のスーパーで購入可能な食材を使った料理を提案。ワイン初心者でも気軽にペアリングを楽しめることを目指したサービスです。">
+      <meta property="og:image" content="https://winepair.jp/wine_ogp.jpg">
+      <meta property="og:url" content="https://winepair.jp">
+      <meta property="og:type" content="website">
+      <meta property="og:site_name" content="ワインペアリング提案">
 
-    <!-- Twitterカード設定（任意）-->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ワインペアリング提案 | ワイン初心者でも気軽に楽しめるWebアプリ">
-    <meta name="twitter:description" content="ワインの値段・産地・品種を入力すると、日本のスーパーで購入可能な食材を使った料理を提案。ワイン初心者でも気軽にペアリングを楽しめることを目指したサービスです。">
-    <meta name="twitter:image" content="https://winepair.jp/wine_ogp.jpg">
-    <meta name="twitter:url" content="https://winepair.jp/wine_ogp.jpg">
+      <!-- Twitterカード設定 -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="ワインペアリング提案 | ワイン初心者でも気軽に楽しめるWebアプリ">
+      <meta name="twitter:description" content="ワインの値段・産地・品種を入力すると、日本のスーパーで購入可能な食材を使った料理を提案。ワイン初心者でも気軽にペアリングを楽しめることを目指したサービスです。">
+      <meta name="twitter:image" content="https://winepair.jp/wine_ogp.jpg">
+      <meta name="twitter:url" content="https://winepair.jp">
+    <% end %>
 
     <%= yield :head %>
 
@@ -36,15 +41,15 @@
   <body class="bg-gray-50 text-gray-800">
     <%= render "shared/header" %>
 
-  <main class="container mx-auto mt-28 px-5 flex flex-col">
-    <% flash.each do |key, message| %>
-      <div class="flash <%= key %> bg-<%= key == "notice" ? "green" : "red" %>-100 border-l-4 border-<%= key == "notice" ? "green" : "red" %>-500 text-<%= key == "notice" ? "green" : "red" %>-700 p-4 mb-4 rounded">
-        <p><%= message %></p>
-      </div>
-    <% end %>
+    <main class="container mx-auto mt-28 px-5 flex flex-col">
+      <% flash.each do |key, message| %>
+        <div class="flash <%= key %> bg-<%= key == "notice" ? "green" : "red" %>-100 border-l-4 border-<%= key == "notice" ? "green" : "red" %>-500 text-<%= key == "notice" ? "green" : "red" %>-700 p-4 mb-4 rounded">
+          <p><%= message %></p>
+        </div>
+      <% end %>
 
-    <%= yield %>
-  </main>
+      <%= yield %>
+    </main>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {

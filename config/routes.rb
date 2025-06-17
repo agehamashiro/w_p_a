@@ -30,4 +30,9 @@ Rails.application.routes.draw do
 
   # ルートパス
   root 'wines#new'
+
+  get 'dishes/:id/ogp', to: 'dishes#ogp', as: :dish_ogp
+  get 'dishes/:id', to: 'dishes#dish', as: :dish
+  resources :dishes, only: [:show]
+  
 end
