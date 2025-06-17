@@ -50,6 +50,7 @@ class WinesController < ApplicationController
       end
     end
   
+    # --- ✅ dish_map 構築と不足分の Dish 自動生成処理 ---
     if @pairing_suggestion.present? && @pairing_suggestion.first.is_a?(Hash)
       dish_names = @pairing_suggestion.map { |dish| dish["料理名"] }.compact.uniq
       @dish_map = Dish.where(name: dish_names).index_by(&:name)
@@ -69,6 +70,7 @@ class WinesController < ApplicationController
     else
       @dish_map = {}
     end
+  end
 
   private
 
