@@ -49,6 +49,13 @@ class WinesController < ApplicationController
         end
       end
     end
+
+    if @pairing_suggestion.present? && @pairing_suggestion.first.is_a?(Hash)
+      dish_names = @pairing_suggestion.map { |dish| dish["料理名"] }
+      @dish_map = Dish.where(name: dish_names).index_by(&:name)
+    else
+      @dish_map = {}
+    end
   end
 
   private

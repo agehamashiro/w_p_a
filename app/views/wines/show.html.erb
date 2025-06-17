@@ -98,8 +98,15 @@
             <div id="share-modal-<%= index %>" class="hidden fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
               <div class="bg-white p-5 rounded-lg shadow-lg text-center">
                 <h3 class="text-lg font-bold mb-3">シェアURL</h3>
-                <input type="text" readonly value="<%= dish_url(index) %>" class="w-full border p-2 mb-3" />
-                <a href="https://twitter.com/intent/tweet?url=<%= CGI.escape(dish_ogp_url(id: index)) %>" target="_blank">
+                <% dish_record = @dish_map[dish["料理名"]] %>
+                  <% if dish_record.present? %>
+                    <input type="text" readonly value="<%= dish_url(dish_record) %>" class="w-full border p-2 mb-3" />
+                    <a href="https://twitter.com/intent/tweet?url=<%= CGI.escape(dish_ogp_url(dish_record)) %>" target="_blank">
+                      <img src="/assets/twitter-icon.png" alt="Twitterで共有" class="w-8 h-8 inline" />
+                    </a>
+                  <% else %>
+                    <p class="text-sm text-gray-500">この料理はまだ共有に対応していません。</p>
+                  <% end %>
                   <img src="/assets/twitter-icon.png" alt="Twitterで共有" class="w-8 h-8 inline" />
                 </a>
                 <div class="mt-4">
