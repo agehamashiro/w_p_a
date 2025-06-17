@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <% image_filename = "#{@dish.name}.jpg" %>
-    <% full_image_url = "https://winepair.jp/images/#{ERB::Util.url_encode(image_filename)}" %>
-    <% full_page_url = request.original_url %>
+    <% full_image_url = "https://winepair.jp/images/#{image_filename}" %>
+    <% full_page_url = request.original_url %>>
 
     <!-- Open Graph -->
     <meta property="og:title" content="<%= @dish.name %>" />
