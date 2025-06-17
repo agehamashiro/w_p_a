@@ -92,24 +92,33 @@
             <% end %>
 
             <!-- 共有ボタン -->
-            <%= button_to "#", method: :get, params: { dishes: [{ "料理名": dish["料理名"] }] }, class: "mt-4 bg-blue-500 text-white px-3 py-1 rounded", onclick: "openShareModal(#{index}); return false;" do %>
-             この料理を共有
+            <%= button_to "#", 
+              method: :get, 
+              params: { dishes: [{ "料理名": dish["料理名"] }] }, 
+              class: "mt-4 text-black border border-red-700 px-3 py-1 rounded ml-auto block", 
+              onclick: "openShareModal(#{index}); return false;" do %>
+             共有
             <% end %>
 
             <!-- モーダル -->
             <div id="share-modal-<%= index %>" class="hidden fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-              <div class="bg-white p-5 rounded-lg shadow-lg text-center">
+              <div class="bg-white p-5 rounded-lg shadow-lg text-center w-[450px] max-w-full">
                 <h3 class="text-lg font-bold mb-3">シェアURL</h3>
                 <% dish_record = @dish_map[dish["料理名"]] %>
                   <% if dish_record.present? %>
                     <input type="text" readonly value="<%= dish_url(dish_record) %>" class="w-full border p-2 mb-3" />
                     <a href="https://twitter.com/intent/tweet?url=<%= CGI.escape(dish_ogp_url(dish_record)) %>" target="_blank">
-                      <img src="/assets/twitter-icon.png" alt="Twitterで共有" class="w-8 h-8 inline" />
+                    <div class="flex justify-center items-center" >
+                    <div class="flex flex-col items-center">
+                      <img src="/X-logo.png" alt="Xのロゴ" class="w-[100px] h-[100px]" />
+                      <span class="mt-2 text-center">X</span>
+                    </div>
+                  </div>
                     </a>
                   <% else %>
                     <p class="text-sm text-gray-500">この料理はまだ共有に対応していません。</p>
                   <% end %>
-                  <img src="/assets/twitter-icon.png" alt="Twitterで共有" class="w-8 h-8 inline" />
+                  
                 </a>
                 <div class="mt-4">
                   <button onclick="closeShareModal(<%= index %>)" class="bg-gray-300 px-4 py-2 rounded">閉じる</button>
