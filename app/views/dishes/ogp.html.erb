@@ -6,7 +6,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" content="<%= @dish.name %>" />
-    <meta property="og:description" content="<%= @dish.description.truncate(100) %>" />
+    <meta property="og:description" content="<%= @dish.description.presence || "データなし" %>">
     <meta property="og:image" content="<%= @dish.image_url %>" />
     <meta property="og:url" content="<%= dish_url(@dish) %>" />
     <meta property="og:type" content="article" />
