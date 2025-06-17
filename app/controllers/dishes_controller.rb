@@ -24,5 +24,14 @@ class DishesController < ApplicationController
 
   def set_dish_map
     @dish_map = Dish.all.index_by(&:name)
+  
+    # dish_map に存在しない料理名が来たとき、自動で登録
+    requested_names = params[:dishes]&.map { |d| d["料理名"] } || []
+    requested_names.each do |name|
+      next if @dish_map[name]
+  
+      new_dish = Dish.create!(name: name, description: "自動生成された説明", image_url: "https://example.com/default.jpg")
+      @dish_map[name] = new_dish
+    end
   end
 end
