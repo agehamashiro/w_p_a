@@ -4,24 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <% image = @dish.image_url.to_s %>
+    <% full_image_url = image.start_with?('http') ? image : request.base_url + image %>
+    <% full_page_url = request.original_url %>
+
     <!-- Open Graph -->
     <meta property="og:title" content="<%= @dish.name %>" />
-    <meta property="og:description" content="<%= @dish.description.presence || "データなし" %>">
-    <meta property="og:image" content="<%= @dish.image_url %>" />
-    <meta property="og:url" content="https://winepair.jp/" />
+    <meta property="og:description" content="<%= @dish.description.presence || "データなし" %>" />
+    <meta property="og:image" content="<%= full_image_url %>" />
+    <meta property="og:url" content="<%= full_page_url %>" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="ワインペアリング提案" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="<%= @dish.name %>" />
-    <meta name="twitter:description" content="<%= @dish.description.presence || "データなし" %>">
-    <meta name="twitter:image" content="<%= @dish.image_url %>" />
+    <meta name="twitter:description" content="<%= @dish.description.presence || "データなし" %>" />
+    <meta name="twitter:image" content="<%= full_image_url %>" />
+    <meta name="twitter:url" content="<%= full_page_url %>" />
     <meta name="twitter:site" content="@your_twitter_account" />
-    <meta name="twitter:url" content="https://winepair.jp/" />
-    
-    <meta http-equiv="refresh" content="0; URL=https://winepair.jp/">
-    </head>
-  <body>
-  </body>
+
+    <meta http-equiv="refresh" content="0; URL=<%= request.base_url %>">
+  </head>
+  <body></body>
 </html>
