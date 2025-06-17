@@ -50,24 +50,25 @@ class WinesController < ApplicationController
       end
     end
   
-    # --- ✅ dish_map 構築と不足分の Dish 自動生成処理 ---
     if @pairing_suggestion.present? && @pairing_suggestion.first.is_a?(Hash)
       dish_names = @pairing_suggestion.map { |dish| dish["料理名"] }.compact.uniq
       @dish_map = Dish.where(name: dish_names).index_by(&:name)
-  
+    
       missing_dish_names = dish_names - @dish_map.keys
       missing_dish_names.each do |name|
+        # 該当料理の情報を取得
+        dish_info = @pairing_suggestion.find { |dish| dish["料理名"] == name }
+    
         new_dish = Dish.create!(
           name: name,
-          description: "自動生成された説明です。",
-          image_url: "/images/#{name}.jpg"
+          description: dish_info&.dig("説明") || "自動生成された説明です。",
+          image_url: dish_info&.dig("画像URL") || "/images/#{name.parameterize}.jpg"
         )
         @dish_map[name] = new_dish
       end
     else
       @dish_map = {}
     end
-  end
 
   private
 
