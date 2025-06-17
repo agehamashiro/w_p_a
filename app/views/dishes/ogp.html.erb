@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <% image = @dish.image_url.to_s %>
-    <% full_image_url = image.start_with?('http') ? image : request.base_url + image %>
+    <% image_filename = "#{@dish.name}.jpg" %>
+    <% full_image_url = "https://winepair.jp/images/#{ERB::Util.url_encode(image_filename)}" %>
     <% full_page_url = request.original_url %>
 
     <!-- Open Graph -->
@@ -22,7 +22,6 @@
     <meta name="twitter:description" content="<%= @dish.description.presence || "データなし" %>" />
     <meta name="twitter:image" content="<%= full_image_url %>" />
     <meta name="twitter:url" content="<%= full_page_url %>" />
-    <meta name="twitter:site" content="@your_twitter_account" />
 
     <meta http-equiv="refresh" content="0; URL=<%= request.base_url %>">
   </head>
