@@ -92,7 +92,9 @@
             <% end %>
 
             <!-- 共有ボタン -->
-            <button onclick="openShareModal(<%= index %>)" class="mt-4 bg-blue-500 text-white px-3 py-1 rounded">この料理を共有</button>
+            <%= button_to "#", method: :get, params: { dishes: [{ "料理名": dish["料理名"] }] }, class: "mt-4 bg-blue-500 text-white px-3 py-1 rounded", onclick: "openShareModal(#{index}); return false;" do %>
+             この料理を共有
+            <% end %>
 
             <!-- モーダル -->
             <div id="share-modal-<%= index %>" class="hidden fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
