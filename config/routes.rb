@@ -34,5 +34,4 @@ Rails.application.routes.draw do
   get 'dishes/:id/ogp', to: 'dishes#ogp', as: :dish_ogp
   get 'dishes/:id', to: 'dishes#dish', as: :dish
   resources :dishes, only: [:show]
-  
 end

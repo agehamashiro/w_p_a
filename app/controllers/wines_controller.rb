@@ -20,21 +20,21 @@ class WinesController < ApplicationController
   def show
     @wine = Wine.find(params[:id])
     @wine.price_range = params[:price_range]
-  
+
     if @wine.suggestions.any?
       @suggestion = @wine.suggestions.last
       @pairing_suggestion = JSON.parse(@suggestion.data)
       @error_message = nil
     else
       result = fetch_pairing_suggestion(@wine)
-  
+
       if result.is_a?(Hash) && result[:error].present?
         @error_message = result[:error]
         @pairing_suggestion = nil
       else
         @pairing_suggestion = result
         @error_message = nil
-  
+
         first_dish = result.first
         if first_dish.is_a?(Hash)
           @suggestion = Suggestion.create(
@@ -49,19 +49,19 @@ class WinesController < ApplicationController
         end
       end
     end
-    
+
     Dish.delete_all
 
     # --- ✅ dish_map 構築と不足分の Dish 自動生成処理 ---
     if @pairing_suggestion.present? && @pairing_suggestion.first.is_a?(Hash)
       dish_names = @pairing_suggestion.map { |dish| dish["料理名"] }.compact.uniq
       @dish_map = Dish.where(name: dish_names).index_by(&:name)
-    
+
       missing_dish_names = dish_names - @dish_map.keys
       missing_dish_names.each do |name|
         # 該当料理の情報を取得
         dish_info = @pairing_suggestion.find { |dish| dish["料理名"] == name }
-    
+
         new_dish = Dish.create!(
           name: name,
           description: dish_info&.dig("説明") || "自動生成された説明です。",
