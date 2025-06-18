@@ -5,8 +5,7 @@ RSpec.describe "Dishes", type: :request do
     it "returns http success" do
       dish = Dish.create!(
         name: "Test Dish",
-        description: "A sample dish for testing.",
-        price: 1000
+        description: "Sample description"
       )
       get dish_path(dish)
       expect(response).to have_http_status(:success)
