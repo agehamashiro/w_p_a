@@ -52,25 +52,21 @@
 
       <div>
         <%= f.submit "ログイン", class: "w-full flex items-center justify-center border-2 rounded-full py-2 px-4 bg-white text-black font-semibold shadow-sm transition", style: "border-color: #800020;" %>
-      </div>
-    <% end %>
 
+    </div>
+    
     <div class="my-6 flex items-center">
       <div class="flex-grow border-t border-gray-300"></div>
       <span class="mx-4 text-gray-500">または</span>
       <div class="flex-grow border-t border-gray-300"></div>
     </div>
-
+    
     <div class="flex justify-center">
-      <%= form_with url: "/auth/google_oauth2", method: :post, local: true do %>
-        <button type="submit" class="w-full flex items-center justify-center border-2 rounded-full py-2 px-4 bg-white shadow-sm hover:bg-gray-100 transition" style="border-color: #102e6d;">
-          <img src="/google.svg" alt="Google" class="h-6 w-6 mr-2">
-          <span class="text-gray-800 text-base font-semibold" style="font-family: 'Kaisei Decol', serif;">Google でログイン</span>
-        </button>
-      <% end %>
+    <%= form_with url: "/auth/google_oauth2", method: :post, local: true, authenticity_token: true do %>
+      <button type="submit" class="w-full flex items-center justify-center border-2 rounded-full py-2 px-4 bg-white shadow-sm hover:bg-gray-100 transition" style="border-color: #102e6d;">
+        <img src="/google.svg" alt="Google" class="h-6 w-6 mr-2">
+        <span class="text-gray-800 text-base font-semibold" style="font-family: 'Kaisei Decol', serif;">Google でログイン</span>
+      </button>
+    <% end %>    
     </div>
-
-  </div>
-</body>
-
-
+    <% end %>
