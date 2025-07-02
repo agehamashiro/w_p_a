@@ -1,6 +1,6 @@
 
 OmniAuth.config.allowed_request_methods = [ :post ]
-OmniAuth.config.silence_get_warning = true
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :google_oauth2,
            ENV["GOOGLE_CLIENT_ID"],
@@ -8,6 +8,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            {
             scope: "email,profile",
             prompt: "select_account",
+            access_type: 'online'
             setup: lambda { |env|
               request = Rack::Request.new(env)
               Rails.logger.info "[DEBUG] redirect_uri: #{request.base_url}/auth/google_oauth2/callback"
