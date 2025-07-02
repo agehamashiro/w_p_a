@@ -58,5 +58,5 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   
-  
+  config.force_ssl = true
 end
