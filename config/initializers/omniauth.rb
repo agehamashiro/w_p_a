@@ -1,4 +1,3 @@
-
 OmniAuth.config.allowed_request_methods = [ :post ]
 
 Rails.application.config.middleware.use OmniAuth::Builder do
@@ -8,11 +7,10 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            {
             scope: "email,profile",
             prompt: "select_account",
-            access_type: 'online'
+            access_type: 'online',  # ← ここにカンマを追加
             setup: lambda { |env|
               request = Rack::Request.new(env)
               Rails.logger.info "[DEBUG] redirect_uri: #{request.base_url}/auth/google_oauth2/callback"
             }
-             
            }
 end
